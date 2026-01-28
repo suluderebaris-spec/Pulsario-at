@@ -1,0 +1,120 @@
+# PULSARIO Stripe Payment Link - Quick Reference
+
+## 🔑 Die Eine Variable, die du eintragen musst
+
+```javascript
+// FILE: index.html
+// LINE: ~100 (suche nach "STRIPE_PAYMENT_LINK")
+
+const STRIPE_PAYMENT_LINK = {
+    consultation: 'https://buy.stripe.com/YOUR_LINK_HERE',
+    // ^^^^^^^^^^ ↑ Ersetze das mit deinem echten Stripe Link
+};
+```
+
+---
+
+## 📝 Wo du deinen Stripe Link findest
+
+1. Gehe zu https://dashboard.stripe.com
+2. Login (oder kostenlos registrieren)
+3. Seitebar: `Products` → `Payment Links`
+4. Click: `Create payment link`
+5. Product: "Consulting Session"
+6. Price: €49.00
+7. Click: `Create payment link`
+8. **Kopiere den Link!** (sieht aus wie: `https://buy.stripe.com/test_abc123...`)
+9. Setze ihn in die `index.html`
+
+---
+
+## 🎯 Alle Orte, wo der Link verwendet wird
+
+### 1. Header Desktop (`<header>`)
+```html
+<a href="LINK_HIER" class="cta-button">BERATUNG BUCHEN</a>
+```
+
+### 2. Mobile Menu (`<nav class="mobile-menu">`)
+```html
+<a href="LINK_HIER" style="background: var(--gold);">📞 BERATUNG BUCHEN</a>
+```
+
+### 3. Consulting Page (`<section id="consulting">`)
+```html
+<a href="LINK_HIER" class="btn-checkout">💳 KONSULTATION BUCHEN – €49</a>
+```
+
+---
+
+## ✅ Nach dem Eintragen
+
+1. Website testen im Browser
+2. Desktop: Button im Header klicken → sollte zu Stripe leiten
+3. Mobile: Hamburger-Menü öffnen → Button klicken
+4. Test-Zahlung: Card `4242 4242 4242 4242`
+5. Fertig! ✅
+
+---
+
+## 🆘 Es funktioniert nicht?
+
+| Problem | Lösung |
+|---------|--------|
+| Link zeigt 404 | Copy-Paste-Fehler? Link genau überprüfen |
+| Button funktioniert nicht | Ist das `target="_blank"`? Browser blockiert? |
+| Zahlungsseite lädt nicht | Hast du Test-Modus aus? (Production-Key nötig) |
+| Stripe-Seite zeigt Fehler | Kontakt: support@stripe.com |
+
+---
+
+## 💡 Pro-Tipps
+
+**Tip 1:** Speichere den Stripe-Link in einer separaten Datei
+```
+STRIPE_LINKS.txt
+consultation: https://buy.stripe.com/test_abc123
+workshop: https://buy.stripe.com/test_def456
+```
+
+**Tip 2:** Teste regelmäßig, ob der Link noch funktioniert
+
+**Tip 3:** Nutze die Analytics im Stripe Dashboard, um Konversionen zu sehen
+
+**Tip 4:** Speichere die E-Mails der Käufer für Follow-up
+
+---
+
+## 📦 Was Stripe macht
+
+- ✅ Zahlung verarbeiten
+- ✅ Kreditkarteninfo speichern (nicht auf deinem Server!)
+- ✅ Zahlungsbestätigung senden
+- ✅ Betrug erkennen
+- ✅ Alles DSGVO-konform
+
+**Du musst dich um nichts kümmern!** 🎉
+
+---
+
+## 🚀 Deployment-Checklist
+
+- [ ] Stripe Account erstellt
+- [ ] Payment Link erstellt
+- [ ] Link in `index.html` eingetragen
+- [ ] Website lokal getestet
+- [ ] Test-Zahlung durchgeführt
+- [ ] Production-Link eingetragen (wenn live)
+- [ ] Server deployed
+- [ ] Live-Link getestet
+- [ ] Fertig! 🎊
+
+---
+
+**Setup-Zeit:** 5 Minuten  
+**Kosten:** €0 Setup + 2,9% pro Transaktion  
+**Komplexität:** ⭐ (Super einfach)  
+
+---
+
+*Fragen? support@pulsario.co oder support@stripe.com*

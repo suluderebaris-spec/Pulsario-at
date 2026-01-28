@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PULSARIO Stripe Integration - Implementation Guide</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0a0a0a;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+        .container { max-width: 1000px; margin: 0 auto; }
+        h1 {
+            color: #c5a059;
+            font-size: 3rem;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        h2 {
+            color: #c5a059;
+            font-size: 1.8rem;
+            margin-top: 50px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #c5a059;
+            padding-bottom: 10px;
+        }
+        h3 {
+            color: #e0b96d;
+            font-size: 1.3rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        .step {
+            background: #1a1a1a;
+            border-left: 4px solid #c5a059;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .code {
+            background: #050505;
+            border: 1px solid #333;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin: 15px 0;
+            color: #4ade80;
+        }
+        .highlight {
+            background: #c5a059;
+            color: #000;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        .warning {
+            background: #ff6b6b20;
+            border-left: 4px solid #ff6b6b;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .success {
+            background: #4ade8020;
+            border-left: 4px solid #4ade80;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .checklist {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .checkbox-item {
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 4px;
+            border-left: 3px solid #c5a059;
+        }
+        .checkbox-item input {
+            margin-right: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #1a1a1a;
+            border: 1px solid #333;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+        th {
+            background: #0a0a0a;
+            color: #c5a059;
+            font-weight: bold;
+        }
+        .location-badge {
+            display: inline-block;
+            background: #c5a059;
+            color: #000;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            margin-right: 10px;
+        }
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+        .status.ready { background: #4ade80; color: #000; }
+        .status.pending { background: #fbbf24; color: #000; }
+        .status.manual { background: #60a5fa; color: #000; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 PULSARIO Stripe Payment Integration</h1>
+        <p style="text-align: center; color: #a0a0a0; font-size: 1.1rem; margin-bottom: 40px;">
+            Implementierungsguide für One-Click Consulting Booking
+        </p>
+
+        <!-- ===== OVERVIEW ===== -->
+        <h2>📋 Überblick</h2>
+        <div class="success">
+            <strong>✅ Status: READY FOR PRODUCTION</strong><br>
+            Alle Integration sind implementiert. Sie müssen nur noch Ihren Stripe-Link eintragen.
+        </div>
+
+        <!-- ===== STEP 1 ===== -->
+        <h2>🚀 SCHRITT 1: Stripe Payment Link erstellen</h2>
+        <div class="step">
+            <h3>Anleitung:</h3>
+            <ol>
+                <li>Gehe zu <strong><a href="https://dashboard.stripe.com" target="_blank" style="color: #c5a059;">https://dashboard.stripe.com</a></strong></li>
+                <li>Login (oder kostenlos registrieren)</li>
+                <li>Sidebar → <span class="highlight">Products</span> → <span class="highlight">Payment Links</span></li>
+                <li>Klick <span class="highlight">Create payment link</span></li>
+                <li>Fülle folgendes aus:
+                    <ul>
+                        <li><strong>Product Name:</strong> Consulting Session</li>
+                        <li><strong>Price:</strong> €49.00</li>
+                        <li><strong>Description:</strong> 30-Minute PULSARIO Expert Consultation</li>
+                    </ul>
+                </li>
+                <li>Klick <span class="highlight">Create payment link</span></li>
+                <li>🔗 <strong>Kopiere den Link!</strong> (Sieht aus wie: <code>https://buy.stripe.com/test_abc123def456</code>)</li>
+            </ol>
+        </div>
+
+        <!-- ===== STEP 2 ===== -->
+        <h2>✏️ SCHRITT 2: Link in index.html eintragen</h2>
+        <div class="step">
+            <h3>Ort im Code:</h3>
+            <p><strong>Datei:</strong> index.html<br>
+            <strong>Zeile:</strong> ~100 (suche nach "STRIPE_PAYMENT_LINK")</p>
+
+            <h3>Vorher:</h3>
+            <div class="code">
+const STRIPE_PAYMENT_LINK = {<br>
+&nbsp;&nbsp;consultation: 'https://buy.stripe.com/test_placeholder_link',<br>
+};
+            </div>
+
+            <h3>Nachher:</h3>
+            <div class="code" style="color: #4ade80;">
+const STRIPE_PAYMENT_LINK = {<br>
+&nbsp;&nbsp;consultation: 'https://buy.stripe.com/test_abc123def456',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// ← Dein echter Link!<br>
+};
+            </div>
+
+            <div class="warning">
+                ⚠️ <strong>Wichtig:</strong> Ersetze nur den <strong>test_placeholder_link</strong> Teil mit deinem echten Link. Der Rest muss gleich bleiben!
+            </div>
+        </div>
+
+        <!-- ===== BUTTON LOCATIONS ===== -->
+        <h2>🔘 Alle Button-Platzierungen</h2>
+        
+        <h3><span class="location-badge">LOCATION 1</span> Header (Desktop)</h3>
+        <div class="step">
+            <p><strong>Zeile:</strong> ~90 (im <code>&lt;header&gt;</code> Element)</p>
+            <div class="code">
+&lt;a href="https://buy.stripe.com/test_abc123def456" 
+   target="_blank" 
+   class="cta-button"&gt;
+&nbsp;&nbsp;BERATUNG BUCHEN
+&lt;/a&gt;
+            </div>
+            <p><strong>Design:</strong> Gold Button, rechts neben Warenkorb</p>
+        </div>
+
+        <h3><span class="location-badge">LOCATION 2</span> Mobile Menu</h3>
+        <div class="step">
+            <p><strong>Zeile:</strong> ~105 (im <code>&lt;nav class="mobile-menu"&gt;</code> Element)</p>
+            <div class="code">
+&lt;a href="https://buy.stripe.com/test_abc123def456" 
+   target="_blank" 
+   style="background: var(--gold); ..."&gt;
+&nbsp;&nbsp;📞 BERATUNG BUCHEN
+&lt;/a&gt;
+            </div>
+            <p><strong>Design:</strong> Gold Button in Mobile-Menü</p>
+        </div>
+
+        <h3><span class="location-badge">LOCATION 3</span> Consulting Page</h3>
+        <div class="step">
+            <p><strong>Zeile:</strong> ~2600 (neue <code>&lt;section id="consulting"&gt;</code>)</p>
+            <div class="code">
+&lt;a href="https://buy.stripe.com/test_abc123def456" 
+   target="_blank" 
+   class="btn-checkout" 
+   style="width: 100%; padding: 20px;"&gt;
+&nbsp;&nbsp;💳 KONSULTATION BUCHEN – €49
+&lt;/a&gt;
+            </div>
+            <p><strong>Design:</strong> Großer Button mit Preis</p>
+        </div>
+
+        <!-- ===== FEATURES ===== -->
+        <h2>✨ Was wurde implementiert?</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th>Status</th>
+                    <th>Beschreibung</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Stripe Payment Link</strong></td>
+                    <td><span class="status ready">READY</span></td>
+                    <td>Konfigurierbare Link-Variable</td>
+                </tr>
+                <tr>
+                    <td><strong>Header Button</strong></td>
+                    <td><span class="status ready">READY</span></td>
+                    <td>Desktop Navigation</td>
+                </tr>
+                <tr>
+                    <td><strong>Mobile Button</strong></td>
+                    <td><span class="status ready">READY</span></td>
+                    <td>Hamburger Menu</td>
+                </tr>
+                <tr>
+                    <td><strong>Consulting Page</strong></td>
+                    <td><span class="status ready">READY</span></td>
+                    <td>/consulting route mit FAQ</td>
+                </tr>
+                <tr>
+                    <td><strong>Success Page</strong></td>
+                    <td><span class="status ready">READY</span></td>
+                    <td>/consulting-success after payment</td>
+                </tr>
+                <tr>
+                    <td><strong>JavaScript Functions</strong></td>
+                    <td><span class="status ready">READY</span></td>
+                    <td>bookConsultation(), toggleFaq()</td>
+                </tr>
+                <tr>
+                    <td><strong>FAQ Section</strong></td>
+                    <td><span class="status ready">READY</span></td>
+                    <td>5 Toggle-fähige Fragen</td>
+                </tr>
+                <tr>
+                    <td><strong>Mobile Responsive</strong></td>
+                    <td><span class="status ready">READY</span></td>
+                    <td>Alle Screens optimiert</td>
+                </tr>
+                <tr>
+                    <td><strong>Stripe Link konfigurieren</strong></td>
+                    <td><span class="status manual">MANUAL</span></td>
+                    <td>Sie müssen nur den Link eintragen</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- ===== TESTING ===== -->
+        <h2>🧪 Testing Checklist</h2>
+        <div class="checklist">
+            <div class="checkbox-item">
+                <input type="checkbox"> Desktop Header Button
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox"> Mobile Menu Button
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox"> Consulting Page Buttons
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox"> FAQ Toggle funktioniert
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox"> Stripe Checkout lädt
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox"> Test-Zahlung durchgeführt
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox"> Success Page zeigt
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox"> Links auf allen Devices
+            </div>
+        </div>
+
+        <!-- ===== DEPLOYMENT ===== -->
+        <h2>🚀 Vor dem Go-Live</h2>
+        <div class="step">
+            <h3>Checklist:</h3>
+            <ul>
+                <li>✅ Stripe Account erstellt</li>
+                <li>✅ Payment Link generiert</li>
+                <li>✅ Link in Code eintragen</li>
+                <li>✅ Test-Zahlung durchgeführt (Card: <code>4242 4242 4242 4242</code>)</li>
+                <li>✅ Alle Buttons funktionieren</li>
+                <li>✅ Mobile responsive testen</li>
+                <li>✅ AGB aktualisiert (Widerruf erwähnen)</li>
+                <li>✅ Datenschutzerklärung aktualisiert</li>
+                <li>✅ Live-Stripe-Keys verwenden (nicht Test!)</li>
+                <li>✅ Website deployen</li>
+                <li>✅ Finale Tests auf Live-Server</li>
+            </ul>
+        </div>
+
+        <!-- ===== FAQ ===== -->
+        <h2>❓ Häufige Fragen</h2>
+
+        <h3>Was kostet Stripe?</h3>
+        <div class="step">
+            <p>Stripe verlangt keine Setup-Gebühr. Sie zahlen nur pro erfolgreiche Transaktion:</p>
+            <ul>
+                <li><strong>2,9% + €0,30</strong> pro Zahlung (Standard für Deutschland/Österreich)</li>
+                <li>Beispiel: €49 Zahlung = €1,72 Gebühr</li>
+                <li>Nach ca. 10 Buchungen haben Sie die Entwicklungskosten wieder raus 😉</li>
+            </ul>
+        </div>
+
+        <h3>Welche Zahlungsarten akzeptiert Stripe?</h3>
+        <div class="step">
+            <ul>
+                <li>Kreditkarten (Visa, Mastercard, Amex)</li>
+                <li>PayPal</li>
+                <li>Google Pay</li>
+                <li>Apple Pay</li>
+                <li>iDEAL (Niederlande)</li>
+                <li>SEPA (EU)</li>
+                <li>Bancontact, Sofort, EPS, und viele mehr...</li>
+            </ul>
+        </div>
+
+        <h3>Ist das DSGVO-konform?</h3>
+        <div class="step">
+            <p><strong>Ja, 100%!</strong></p>
+            <ul>
+                <li>Stripe ist DSGVO-zertifiziert</li>
+                <li>Kreditkartendaten landen nie auf Ihrem Server</li>
+                <li>Alles läuft über Stripe's Hosted Checkout</li>
+                <li>Sie müssen nur die Datenschutzerklärung aktualisieren (erwähnen Sie Stripe)</li>
+            </ul>
+        </div>
+
+        <h3>Was passiert nach der Zahlung?</h3>
+        <div class="step">
+            <ol>
+                <li>Kunde zahlt über Stripe</li>
+                <li>Stripe sendet Bestätigungsmail an Kunden</li>
+                <li>Kunde sieht Success-Page</li>
+                <li>Optional: Sie erhalten eine Webhook-Benachrichtigung (für Automation)</li>
+                <li>Sie organisieren die Konsultation (per Email, Kalender, etc.)</li>
+            </ol>
+        </div>
+
+        <h3>Kann ich mehrere Services verkaufen?</h3>
+        <div class="step">
+            <p><strong>Ja!</strong> Einfach mehr Payment Links hinzufügen:</p>
+            <div class="code">
+const STRIPE_PAYMENT_LINK = {<br>
+&nbsp;&nbsp;consultation: 'https://buy.stripe.com/...',<br>
+&nbsp;&nbsp;workshop: 'https://buy.stripe.com/...',<br>
+&nbsp;&nbsp;premium_package: 'https://buy.stripe.com/...',<br>
+};
+            </div>
+        </div>
+
+        <!-- ===== SUPPORT ===== -->
+        <h2>📞 Support & Kontakt</h2>
+        <div class="step">
+            <p><strong>Stripe Documentation:</strong> <a href="https://stripe.com/docs" target="_blank" style="color: #c5a059;">stripe.com/docs</a></p>
+            <p><strong>Stripe Support:</strong> support@stripe.com</p>
+            <p><strong>PULSARIO Support:</strong> pulsario.official@gmail.com</p>
+        </div>
+
+        <!-- ===== FINAL ===== -->
+        <div style="text-align: center; margin-top: 80px; padding: 40px; background: #1a1a1a; border-radius: 4px;">
+            <h2 style="border: none; margin-top: 0;">✅ Sie sind bereit!</h2>
+            <p style="color: #a0a0a0; font-size: 1.1rem; margin-bottom: 20px;">
+                Alle Integration sind implementiert. Sie brauchen nur noch einen Stripe-Link eintragen und schon funktioniert das Payment-System.
+            </p>
+            <p style="color: #c5a059; font-weight: bold;">
+                ⏱️ Setup-Zeit: 10 Minuten<br>
+                💰 Kosten: €0 (nur Transaktionsgebühren)<br>
+                🎯 Komplexität: Minimal
+            </p>
+        </div>
+    </div>
+</body>
+</html>

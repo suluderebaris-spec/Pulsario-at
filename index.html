@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PULSARIO | Elite Black Edition</title>
+    <title>PULSARIO | Premium Smartwatch</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link
@@ -20,7 +20,6 @@
             --gold-glow: rgba(197, 160, 89, 0.4);
             --black: #000000;
             --dark-card: #0a0a0a;
-            --elite-bg: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
             --white: #ffffff;
             --gray: #a0a0a0;
             --transition: 0.8s cubic-bezier(0.85, 0, 0.15, 1);
@@ -558,13 +557,39 @@
             font-weight: 900;
             letter-spacing: 4px;
             cursor: pointer;
-            transition: 0.4s;
+            transition: all 0.4s cubic-bezier(0.85, 0, 0.15, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-checkout::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+            z-index: 0;
+        }
+        
+        .btn-checkout:hover::before {
+            width: 400px;
+            height: 400px;
         }
 
         .btn-checkout:hover {
             background: #e0b96d;
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(224, 185, 109, 0.4);
+        }
+        
+        .btn-checkout > * {
+            position: relative;
+            z-index: 1;
         }
 
         /* --- PRODUCT DETAIL MODAL --- */
@@ -782,15 +807,16 @@
             border: 1px solid #111;
             padding: 30px 20px;
             text-align: center;
-            transition: 0.5s;
+            transition: all 0.5s cubic-bezier(0.85, 0, 0.15, 1);
             position: relative;
             overflow: hidden;
+            perspective: 1000px;
         }
 
         .member-card:hover {
             border-color: var(--gold);
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(197, 160, 89, 0.1);
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 15px 40px rgba(197, 160, 89, 0.2), inset 0 1px 0 rgba(197, 160, 89, 0.1);
         }
 
         .member-card h4 {
@@ -812,6 +838,24 @@
             color: #888;
             margin-top: 15px;
             line-height: 1.4;
+        }
+
+        /* --- PRODUCT CARD 3D HOVER --- */
+        @media (hover: hover) {
+            [style*="background: var(--dark-card)"][style*="border: 1px solid #111"][style*="overflow: hidden"] {
+                perspective: 1000px;
+                transition: all 0.5s cubic-bezier(0.85, 0, 0.15, 1);
+            }
+            
+            [style*="background: var(--dark-card)"][style*="border: 1px solid #111"][style*="overflow: hidden"]:hover {
+                transform: translateZ(20px) rotateX(2deg) rotateY(2deg) scale(1.02);
+                box-shadow: 0 20px 60px rgba(197, 160, 89, 0.25), 0 0 40px rgba(197, 160, 89, 0.1);
+            }
+        }
+        
+        [style*="background: var(--dark-card)"][style*="border: 1px solid #111"][style*="overflow: hidden"] {
+            transition: all 0.5s cubic-bezier(0.85, 0, 0.15, 1);
+            box-shadow: 0 5px 15px rgba(197, 160, 89, 0.05);
         }
 
         /* --- SHOP / CONFIGURATOR --- */
@@ -865,24 +909,58 @@
             background: transparent;
             color: white;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.3s cubic-bezier(0.85, 0, 0.15, 1);
             font-size: 0.7rem;
             font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .opt-node::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(197, 160, 89, 0.2), transparent);
+            transition: left 0.5s ease;
+            pointer-events: none;
         }
 
         .opt-node:hover {
             border-color: #444;
             background: rgba(255, 255, 255, 0.02);
         }
+        
+        .opt-node:hover::after {
+            left: 100%;
+        }
 
         .opt-node.active {
             border-color: var(--gold);
             background: rgba(197, 160, 89, 0.05);
             color: var(--gold);
-            box-shadow: 0 0 15px var(--gold-glow);
+            box-shadow: 0 0 15px var(--gold-glow), inset 0 0 15px rgba(197, 160, 89, 0.1);
+            animation: activePulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes activePulse {
+            0%, 100% { box-shadow: 0 0 15px var(--gold-glow), inset 0 0 15px rgba(197, 160, 89, 0.1); }
+            50% { box-shadow: 0 0 25px rgba(197, 160, 89, 0.6), inset 0 0 20px rgba(197, 160, 89, 0.15); }
         }
 
-        /* --- CHECKOUT & ELITE MODE --- */
+        @keyframes badgePulse {
+            0%, 100% { box-shadow: 0 0 10px rgba(197, 160, 89, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(197, 160, 89, 0.8), 0 0 30px rgba(197, 160, 89, 0.4); }
+        }
+
+        @keyframes badgeNewGlow {
+            0%, 100% { box-shadow: 0 0 8px var(--gold-glow); }
+            50% { box-shadow: 0 0 15px var(--gold), 0 0 25px rgba(197, 160, 89, 0.4); }
+        }
+
+        /* --- CHECKOUT STYLES --- */
         .checkout-container {
             display: grid;
             grid-template-columns: 1.4fr 0.6fr;
@@ -894,12 +972,6 @@
             padding: 50px;
             border: 1px solid #111;
             transition: all 0.8s ease;
-        }
-
-        .elite-active .checkout-main {
-            background: var(--elite-bg);
-            border: 1px solid var(--gold);
-            box-shadow: 0 0 50px rgba(197, 160, 89, 0.15);
         }
 
         .form-group {
@@ -1043,9 +1115,15 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0.3) 100%);
+            background: linear-gradient(135deg, rgba(0,0,0,0.5) 0%, rgba(197,160,89,0.05) 50%, rgba(0,0,0,0.5) 100%);
             z-index: -1;
             pointer-events: none;
+            animation: gradientShift 8s ease-in-out infinite;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
         }
         
         .hero-section .hero-content {
@@ -2473,6 +2551,25 @@
             margin-bottom: 10px;
             color: var(--white);
         }
+
+        /* ===== HIDE 2ND AND 3RD PRODUCTS - SHOW ONLY WATCH & CARDHOLDER ===== */
+        #shop > div > div:nth-child(2),
+        #shop > div > div:nth-child(3) {
+            display: none !important;
+        }
+
+        #shop > div {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 40px !important;
+        }
+
+        #shop > div > div:nth-child(1) {
+            grid-column: 1 !important;
+        }
+
+        #shop > div > div:nth-child(4) {
+            grid-column: 2 !important;
+        }
     </style>
 </head>
 
@@ -2507,17 +2604,10 @@
         <a href="#" class="logo" onclick="nav('home')">PULSARIO</a>
         <nav class="nav-center" id="nav-center">
             <button class="nav-main-btn" onclick="nav('configurator')" id="lnk-configurator">KONFIGURIEREN</button>
+            <button class="nav-main-btn" onclick="nav('cardholder-configurator')" id="lnk-cardholder-configurator">CARDHOLDER</button>
             <button class="nav-main-btn" onclick="nav('shop')" id="lnk-shop">SHOP</button>
         </nav>
         <div class="nav-right">
-            <div class="cart-icon" onclick="toggleCart(true)">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4H6z"></path>
-                    <line x1="3" y1="6" x2="21" y2="6"></line>
-                    <path d="M16 10a4 4 0 0 1-8 0"></path>
-                </svg>
-                <div class="cart-count" id="cart-badge">0</div>
-            </div>
             <div class="hamburger" id="hamburger">
                 <span></span>
                 <span></span>
@@ -2531,6 +2621,7 @@
             <a href="#" onclick="nav('about')" id="lnk-about">ABOUT US</a>
             <a href="#" onclick="nav('news')" id="lnk-news">NEWS</a>
             <a href="#" onclick="nav('zusammenarbeit')" id="lnk-zusammenarbeit">ZUSAMMENARBEIT</a>
+            <a href="#" onclick="nav('nachhaltigkeit')" id="lnk-nachhaltigkeit">NACHHALTIGKEIT</a>
             <a href="#" onclick="nav('contact')" id="lnk-contact">KONTAKT</a>
             <hr style="border: none; border-top: 1px solid #333; margin: 20px 0;">
             <a href="#" onclick="nav('agb')">AGB</a>
@@ -2604,9 +2695,9 @@
                 <h2 class="section-title" style="text-align:center; margin-bottom: 80px;">VIER GRÜNDE FÜR PULSARIO</h2>
                 <div class="value-props">
                     <div class="value-prop-card">
-                        <div class="value-prop-icon">⏰</div>
-                        <h4>VIBRATION WAKE</h4>
-                        <p>Intelligent wecken ohne Lärm. Haptische Impulse für sanfte Unterbrechungen im richtigen Moment.</p>
+                        <div class="value-prop-icon">✨</div>
+                        <h4>COMPACT & ELEGANT</h4>
+                        <p>Minimalistisches Design, das sich überall trägt. Klein genug für die Hosentasche, elegant genug für jeden Anlass.</p>
                     </div>
                     <div class="value-prop-card">
                         <div class="value-prop-icon">♿</div>
@@ -2636,22 +2727,43 @@
                 </div>
                 <div class="preview-text">
                     <h3>PULSARIO ONE – DIE ERSTE GENERATION</h3>
-                    <p>Hochpräzision trifft Innovation. Mit unseren zwei Display-Optionen und mehreren Gehäusevarianten finden Sie genau das Modell, das zu Ihnen passt.</p>
-                    <div class="display-options">
-                        <div class="display-option">
-                            <div>
-                                <strong style="font-size: 0.9rem; color: var(--white);">Display: ESP32-S3 1.28"</strong>
-                                <p style="font-size: 0.7rem; margin-top: 5px; color: var(--gray);">Standard Größe – Klassisches Design</p>
-                            </div>
-                            <span style="color: var(--gold); font-weight: 900;">Standard</span>
-                        </div>
-                        <div class="display-option">
-                            <div>
-                                <strong style="font-size: 0.9rem; color: var(--white);">Display: ESP32-S3 1.46"</strong>
-                                <p style="font-size: 0.7rem; margin-top: 5px; color: var(--gray);">Größeres Display – bessere Sichtbarkeit und RTC CHIP</p>
-                            </div>
-                            <span style="color: var(--gold); font-weight: 900;">+20€</span>
-                        </div>
+                    <p>Technologie trifft Design. Mit unserem hochmodernen AMOLED-Display und mehreren Gehäusematerialien entdecken Sie die Smartwatch, die perfekt zu Ihrem Lebensstil passt.</p>
+                    
+                    <!-- Display Info Section -->
+                    <div style="background: rgba(197, 160, 89, 0.05); border: 1px solid rgba(197, 160, 89, 0.2); padding: 20px; margin-bottom: 25px; border-radius: 6px;">
+                        <p style="font-size: 0.8rem; color: var(--gray); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px;">🎨 Warum unser Display?</p>
+                        <ul style="font-size: 0.85rem; color: var(--white); margin-left: 20px; line-height: 1.8;">
+                            <li>✓ <strong>Vollfarb AMOLED:</strong> Gestochen scharf mit perfekten Farben</li>
+                            <li>✓ <strong>Always-On Display:</strong> Uhrzeit immer sichtbar, stromsparend</li>
+                            <li>✓ <strong>Tageslicht-lesbar:</strong> Auch bei Sonnenschein perfekt zu sehen</li>
+                            <li>✓ <strong>Haptisches Feedback:</strong> Vibration statt Bildschirm-Ablenkung</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PULSARIO SMARTWATCH TEASER -->
+            <div style="margin-top: 150px; padding: 0 60px;">
+                <div style="background: linear-gradient(135deg, rgba(197, 160, 89, 0.08) 0%, rgba(0, 0, 0, 0.3) 100%); border: 2px solid rgba(197, 160, 89, 0.3); border-radius: 8px; overflow: hidden; padding: 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center;">
+                    <div>
+                        <span style="display: inline-block; background: var(--gold); color: black; padding: 8px 15px; border-radius: 20px; font-size: 0.7rem; font-weight: 900; letter-spacing: 1px; margin-bottom: 25px;">🆕 COMING SOON</span>
+                        <h3 style="font-size: 2.5rem; color: var(--gold); margin-bottom: 20px; letter-spacing: 2px; font-family: 'Cinzel';">PULSARIO SMARTWATCH</h3>
+                        <p style="color: var(--gray); font-size: 1rem; line-height: 1.8; margin-bottom: 30px;">
+                            Unser nächstes Projekt steht vor der Tür. Eine vollwertige Smartwatch, die die digitale Welt mit eleganter Handwerkskunst verbindet.
+                        </p>
+                        <p style="color: var(--white); font-size: 0.95rem; line-height: 1.8; margin-bottom: 30px;">
+                            Alle Features der Pulsario ONE, kombiniert mit erweiterten Funktionen:
+                        </p>
+                        <ul style="color: var(--gray); font-size: 0.9rem; margin-left: 20px; line-height: 2; margin-bottom: 40px;">
+                            <li>✓ <strong style="color: var(--gold);">Größeres Display</strong> – 1.5" AMOLED für mehr Informationen</li>
+                            <li>✓ <strong style="color: var(--gold);">Erweiterte Konnektivität</strong> – 4G/LTE für unabhängiges Telefonieren</li>
+                            <li>✓ <strong style="color: var(--gold);">Musik & Apps</strong> – Volle Smartwatch-Erfahrung mit Pulsario-Philosophie</li>
+                            <li>✓ <strong style="color: var(--gold);">Premium-Materialien</strong> – Titanium & Keramik Optionen</li>
+                        </ul>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="images/Pulsario Smartwatch .jpeg" style="width: 100%; max-width: 350px; border-radius: 8px; filter: drop-shadow(0 20px 60px rgba(197, 160, 89, 0.25)); aspect-ratio: auto;">
+                        <p style="color: var(--gray); font-size: 0.8rem; margin-top: 15px; letter-spacing: 1px;">Bildilustration des kommenden Modells</p>
                     </div>
                 </div>
             </div>
@@ -2696,16 +2808,88 @@
                 </div>
             </div>
 
-            <!-- NEWSLETTER -->
-            <div style="margin-top: 80px; text-align: center; border: 1px solid var(--gold); padding: 60px; background: rgba(197, 160, 89, 0.02);">
-                <span style="background: var(--gold); color: black; padding: 5px 20px; font-weight: 900; letter-spacing: 5px; font-size: 0.7rem;">UPDATES & NEWS</span>
-                <h4 style="font-family: 'Cinzel'; margin-top: 15px; font-size: 1.5rem;">BLEIBEN SIE AUF DEM LAUFENDEN</h4>
-                <p style="color: var(--gray); font-size: 0.6rem; margin-top: 10px; margin-bottom: 30px;">Newsletter abonnieren für Produktupdates, Launch-News und exklusive Angebote.</p>
-                <div style="display: flex; gap: 10px; justify-content: center;">
-                    <input type="email" id="home-newsletter-email" placeholder="IHRE EMAIL ADRESSE" required style="flex: 1; max-width: 350px; background: #000; border: 2px solid #333; padding: 15px; color: white; font-family: 'Montserrat'; font-size: 0.85rem; transition: 0.3s;">
-                    <button id="home-newsletter-btn" class="opt-node" style="min-width: 120px; padding: 15px; border-color: #666; background: rgba(197, 160, 89, 0.05); color: #666; cursor: not-allowed; transition: 0.3s;" disabled onclick="subscribeToNewsletter('home')">SUBSCRIBE</button>
+            <!-- TESTIMONIALS SECTION -->
+            <div style="margin-top: 150px; padding: 0 60px;">
+                <span class="section-tag" style="display:flex; justify-content:center;">KUNDENERFAHRUNGEN</span>
+                <h2 class="section-title" style="text-align:center; margin-bottom: 80px;">WAS UNSERE NUTZER SAGEN</h2>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;">
+                    <!-- Testimonial 1 -->
+                    <div style="background: rgba(197, 160, 89, 0.05); border: 1px solid rgba(197, 160, 89, 0.15); padding: 40px 30px; text-align: center; border-radius: 6px;">
+                        <div style="font-size: 1.2rem; margin-bottom: 20px; letter-spacing: 2px;">⭐⭐⭐⭐⭐</div>
+                        <p style="color: var(--gray); font-size: 0.95rem; margin-bottom: 25px; line-height: 1.7;">"Endlich eine Uhr ohne Bildschirm-Ablenkung. Die Vibration funktioniert perfekt für mich als Gehörlosen Person – diskret und zuverlässig."</p>
+                        <p style="color: var(--gold); font-weight: 700; font-size: 0.85rem;">LUKAS M.</p>
+                        <p style="color: var(--gray); font-size: 0.7rem; margin-top: 5px;">Innsbruck, Österreich</p>
+                    </div>
+
+                    <!-- Testimonial 2 -->
+                    <div style="background: rgba(197, 160, 89, 0.05); border: 1px solid rgba(197, 160, 89, 0.15); padding: 40px 30px; text-align: center; border-radius: 6px;">
+                        <div style="font-size: 1.2rem; margin-bottom: 20px; letter-spacing: 2px;">⭐⭐⭐⭐⭐</div>
+                        <p style="color: var(--gray); font-size: 0.95rem; margin-bottom: 25px; line-height: 1.7;">"Super Qualität für den Preis. Echt elegant, aber minimalisch. Und die Gravur – genau das persönliche Touch, das ich gesucht habe."</p>
+                        <p style="color: var(--gold); font-weight: 700; font-size: 0.85rem;">JULIA K.</p>
+                        <p style="color: var(--gray); font-size: 0.7rem; margin-top: 5px;">Wien, Österreich</p>
+                    </div>
+
+                    <!-- Testimonial 3 -->
+                    <div style="background: rgba(197, 160, 89, 0.05); border: 1px solid rgba(197, 160, 89, 0.15); padding: 40px 30px; text-align: center; border-radius: 6px;">
+                        <div style="font-size: 1.2rem; margin-bottom: 20px; letter-spacing: 2px;">⭐⭐⭐⭐⭐</div>
+                        <p style="color: var(--gray); font-size: 0.95rem; margin-bottom: 25px; line-height: 1.7;">"Im Training perfekt. Ich brauche keine Benachrichtigungen – nur die Vibrationen für Interval-Times. Leicht, wasserfest, einfach toll."</p>
+                        <p style="color: var(--gold); font-weight: 700; font-size: 0.85rem;">THOMAS R.</p>
+                        <p style="color: var(--gray); font-size: 0.7rem; margin-top: 5px;">Salzburg, Österreich</p>
+                    </div>
                 </div>
-                <p id="home-newsletter-msg" style="font-size: 0.6rem; margin-top: 15px; font-weight: 800; color: var(--gold); display:none;"></p>
+            </div>
+
+            <!-- CARDHOLDER SHOWCASE SECTION -->
+            <div style="margin-top: 150px; padding: 0 60px;">
+                <span class="section-tag" style="display:flex; justify-content:center;">ZUSATZPRODUKT</span>
+                <h2 class="section-title" style="text-align:center; margin-bottom: 80px;">PULSARIO CARDHOLDER</h2>
+                <p style="text-align: center; color: var(--gray); font-size: 1rem; margin-bottom: 60px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                    Nicht nur die perfekte Smartwatch – auch dein idealer Begleiter. Der PULSARIO Cardholder kombiniert Design mit Funktionalität und passt perfekt zu deiner Pulsario Uhr.
+                </p>
+                
+                <!-- CARDHOLDER IMAGE SLIDER -->
+                <div style="position: relative; background: #000; border: 1px solid #111; border-radius: 8px; overflow: hidden; margin-bottom: 60px; max-width: 700px; margin-left: auto; margin-right: auto;">
+                    <!-- Slider Container -->
+                    <div id="cardholder-slider-container" style="display: flex; transition: transform 0.6s cubic-bezier(0.85, 0, 0.15, 1); transform: translateX(0%);">
+                        <!-- Image 1 -->
+                        <div style="min-width: 100%; flex-shrink: 0; padding: 60px 40px; text-align: center; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle, #111 0%, #000 70%); min-height: 450px;">
+                            <img src="images/WhatsApp Image 2026-03-23 at 22.23.56.jpeg" style="max-height: 400px; max-width: 90%; object-fit: contain; filter: drop-shadow(0 20px 60px rgba(197, 160, 89, 0.3));">
+                        </div>
+                        <!-- Image 2 -->
+                        <div style="min-width: 100%; flex-shrink: 0; padding: 60px 40px; text-align: center; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle, #111 0%, #000 70%); min-height: 450px;">
+                            <img src="images/WhatsApp Image 2026-03-23 at 22.23.56 (1).jpeg" style="max-height: 400px; max-width: 90%; object-fit: contain; filter: drop-shadow(0 20px 60px rgba(197, 160, 89, 0.3));">
+                        </div>
+                        <!-- Image 3 -->
+                        <div style="min-width: 100%; flex-shrink: 0; padding: 60px 40px; text-align: center; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle, #111 0%, #000 70%); min-height: 450px;">
+                            <img src="images/WhatsApp Image 2026-03-23 at 22.23.56 (2).jpeg" style="max-height: 400px; max-width: 90%; object-fit: contain; filter: drop-shadow(0 20px 60px rgba(197, 160, 89, 0.3));">
+                        </div>
+                        <!-- Image 4 -->
+                        <div style="min-width: 100%; flex-shrink: 0; padding: 60px 40px; text-align: center; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle, #111 0%, #000 70%); min-height: 450px;">
+                            <img src="images/WhatsApp Image 2026-03-23 at 22.23.57.jpeg" style="max-height: 400px; max-width: 90%; object-fit: contain; filter: drop-shadow(0 20px 60px rgba(197, 160, 89, 0.3));">
+                        </div>
+                        <!-- Image 5 -->
+                        <div style="min-width: 100%; flex-shrink: 0; padding: 60px 40px; text-align: center; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle, #111 0%, #000 70%); min-height: 450px;">
+                            <img src="images/WhatsApp Image 2026-03-23 at 22.23.57 (1).jpeg" style="max-height: 400px; max-width: 90%; object-fit: contain; filter: drop-shadow(0 20px 60px rgba(197, 160, 89, 0.3));">
+                        </div>
+                    </div>
+                    
+                    <!-- Navigation Buttons -->
+                    <button id="cardholder-prev" style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); background: rgba(197, 160, 89, 0.8); border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; font-size: 1.5rem; color: #000; font-weight: 900; transition: all 0.3s; z-index: 10;" onclick="cardholderSlide(-1)" onmouseover="this.style.background='var(--gold)'" onmouseout="this.style.background='rgba(197, 160, 89, 0.8)'">←</button>
+                    <button id="cardholder-next" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); background: rgba(197, 160, 89, 0.8); border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; font-size: 1.5rem; color: #000; font-weight: 900; transition: all 0.3s; z-index: 10;" onclick="cardholderSlide(1)" onmouseover="this.style.background='var(--gold)'" onmouseout="this.style.background='rgba(197, 160, 89, 0.8)'">→</button>
+                    
+                    <!-- Indicator Dots -->
+                    <div style="position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 10;">
+                        <span id="dot-0" class="slider-dot" style="width: 10px; height: 10px; border-radius: 50%; background: var(--gold); cursor: pointer; transition: 0.3s;" onclick="cardholderGoTo(0)"></span>
+                        <span id="dot-1" class="slider-dot" style="width: 10px; height: 10px; border-radius: 50%; background: rgba(197, 160, 89, 0.4); cursor: pointer; transition: 0.3s;" onclick="cardholderGoTo(1)"></span>
+                        <span id="dot-2" class="slider-dot" style="width: 10px; height: 10px; border-radius: 50%; background: rgba(197, 160, 89, 0.4); cursor: pointer; transition: 0.3s;" onclick="cardholderGoTo(2)"></span>
+                        <span id="dot-3" class="slider-dot" style="width: 10px; height: 10px; border-radius: 50%; background: rgba(197, 160, 89, 0.4); cursor: pointer; transition: 0.3s;" onclick="cardholderGoTo(3)"></span>
+                        <span id="dot-4" class="slider-dot" style="width: 10px; height: 10px; border-radius: 50%; background: rgba(197, 160, 89, 0.4); cursor: pointer; transition: 0.3s;" onclick="cardholderGoTo(4)"></span>
+                    </div>
+                </div>
+
+                <div style="text-align: center;">
+                    <button class="btn-checkout" onclick="nav('shop')" style="max-width: 400px; margin: 0 auto; display: inline-block; width: 100%;">CARDHOLDER JETZT ENTDECKEN</button>
+                </div>
             </div>
         </section>
 
@@ -2716,58 +2900,95 @@
             
             <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 60px;">
                 <!-- Pulsario One - Standard Display -->
-                <div style="background: var(--dark-card); border: 1px solid #111; overflow: hidden; transition: 0.5s;">
+                <div style="background: var(--dark-card); border: 1px solid #111; overflow: hidden; transition: 0.5s; position: relative;">
+                    <div style="position: absolute; top: 15px; right: 15px; background: var(--gold); color: #000; padding: 6px 14px; font-size: 0.65rem; font-weight: 900; letter-spacing: 1px; border-radius: 3px; z-index: 5; animation: badgeNewGlow 2s ease-in-out infinite;">NEU</div>
                     <div style="background: radial-gradient(circle, #111 0%, #000 70%); padding: 50px 30px; text-align: center; min-height: 300px; display: flex; align-items: center; justify-content: center;">
                         <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1000" style="width: 200px; filter: drop-shadow(0 0 30px rgba(0, 0, 0, 0.8));">
                     </div>
                     <div style="padding: 30px;">
                         <h4 style="font-family: 'Cinzel'; color: var(--gold); margin-bottom: 10px; letter-spacing: 2px;">PULSARIO STARTER</h4>
-                        <p style="font-size: 0.7rem; color: var(--gray); margin-bottom: 20px;">Für Schüler & Einsteiger – ab €64.99</p>
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                            <div style="font-family: 'Cinzel'; font-size: 1.8rem; color: var(--gold); font-weight: 900;">64.99€</div>
-                            <span style="font-size: 0.6rem; color: #666; letter-spacing: 2px;">zzgl. Versand</span>
-                        </div>
+                        <p style="font-size: 0.7rem; color: var(--gray); margin-bottom: 30px;">Für Schüler & Einsteiger</p>
                         <button class="btn-checkout" onclick="showWatchInfo(1)" style="margin-bottom: 10px;">MEHR ERFAHREN</button>
-                        <button class="opt-node" style="width: 100%; padding: 15px; border-color: var(--gold); color: var(--gold);" onclick="addQuickCart(64.99, 'Pulsario Starter')">IN WARENKORB</button>
+                        <button class="opt-node" style="width: 100%; padding: 15px; border-color: var(--gold); color: var(--gold);" onclick="nav('configurator')">KONFIGURIEREN</button>
                     </div>
                 </div>
 
                 <!-- Pulsario One - XL Display -->
-                <div style="background: var(--dark-card); border: 1px solid #111; overflow: hidden; transition: 0.5s;">
+                <div style="background: var(--dark-card); border: 1px solid #111; overflow: hidden; transition: 0.5s; position: relative;">
+                    <div style="position: absolute; top: 15px; right: 15px; background: rgba(197, 160, 89, 0.9); color: #000; padding: 6px 14px; font-size: 0.65rem; font-weight: 900; letter-spacing: 1px; border-radius: 3px; z-index: 5; animation: badgePulse 2s ease-in-out infinite;">NUR 8 STÜCK</div>
                     <div style="background: radial-gradient(circle, #111 0%, #000 70%); padding: 50px 30px; text-align: center; min-height: 300px; display: flex; align-items: center; justify-content: center;">
                         <img src="Design/Videos/pulsario_gold_watch.jpg" style="width: 200px; filter: drop-shadow(0 0 30px rgba(197, 160, 89, 0.3));">
                     </div>
                     <div style="padding: 30px;">
                         <h4 style="font-family: 'Cinzel'; color: var(--gold); margin-bottom: 10px; letter-spacing: 2px;">PULSARIO ADVANCED</h4>
-                        <p style="font-size: 0.7rem; color: var(--gray); margin-bottom: 20px;">Premium Sensorik & Performance – ab €85.99</p>
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                            <div style="font-family: 'Cinzel'; font-size: 1.8rem; color: var(--gold); font-weight: 900;">85.99€</div>
-                            <span style="font-size: 0.6rem; color: #666; letter-spacing: 2px;">zzgl. Versand</span>
-                        </div>
+                        <p style="font-size: 0.7rem; color: var(--gray); margin-bottom: 30px;">Premium Sensorik & Performance</p>
                         <button class="btn-checkout" onclick="showWatchInfo(2)" style="margin-bottom: 10px;">MEHR ERFAHREN</button>
-                        <button class="opt-node" style="width: 100%; padding: 15px; border-color: var(--gold); color: var(--gold);" onclick="addQuickCart(85.99, 'Pulsario Advanced')">IN WARENKORB</button>
+                        <button class="opt-node" style="width: 100%; padding: 15px; border-color: var(--gold); color: var(--gold);" onclick="nav('configurator')">KONFIGURIEREN</button>
                     </div>
                 </div>
 
                 <!-- Pulsario One - Premium -->
-                <div style="background: var(--dark-card); border: 1px solid #111; overflow: hidden; transition: 0.5s;">
+                <div style="background: var(--dark-card); border: 1px solid #111; overflow: hidden; transition: 0.5s; position: relative;">
+                    <div style="position: absolute; top: 15px; right: 15px; background: rgba(255, 193, 7, 0.95); color: #000; padding: 6px 14px; font-size: 0.65rem; font-weight: 900; letter-spacing: 1px; border-radius: 3px; z-index: 5; animation: badgePulse 2s ease-in-out infinite;">HANDMADE</div>
                     <div style="background: radial-gradient(circle, #111 0%, #000 70%); padding: 50px 30px; text-align: center; min-height: 300px; display: flex; align-items: center; justify-content: center;">
                         <img src="https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?q=80&w=1000" style="width: 200px; filter: drop-shadow(0 0 30px rgba(0, 0, 0, 0.8));">
                     </div>
                     <div style="padding: 30px;">
                         <h4 style="font-family: 'Cinzel'; color: var(--gold); margin-bottom: 10px; letter-spacing: 2px;">PULSARIO LUXURY</h4>
-                        <p style="font-size: 0.7rem; color: var(--gray); margin-bottom: 20px;">Handgefertigt aus Edelstahl – ab €119.99</p>
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                            <div style="font-family: 'Cinzel'; font-size: 1.8rem; color: var(--gold); font-weight: 900;">119.99€</div>
-                            <span style="font-size: 0.6rem; color: #666; letter-spacing: 2px;">zzgl. Versand</span>
-                        </div>
+                        <p style="font-size: 0.7rem; color: var(--gray); margin-bottom: 30px;">Handgefertigt aus Edelstahl</p>
                         <button class="btn-checkout" onclick="showWatchInfo(3)" style="margin-bottom: 10px;">MEHR ERFAHREN</button>
-                        <button class="opt-node" style="width: 100%; padding: 15px; border-color: var(--gold); color: var(--gold);" onclick="addQuickCart(119.99, 'Pulsario Luxury')">IN WARENKORB</button>
+                        <button class="opt-node" style="width: 100%; padding: 15px; border-color: var(--gold); color: var(--gold);" onclick="nav('configurator')">KONFIGURIEREN</button>
+                    </div>
+                </div>
+
+                <!-- PULSARIO CARDHOLDER -->
+                <div style="background: var(--dark-card); border: 1px solid #111; overflow: hidden; transition: 0.5s; position: relative;">
+                    <div style="position: absolute; top: 15px; right: 15px; background: var(--gold); color: #000; padding: 6px 14px; font-size: 0.65rem; font-weight: 900; letter-spacing: 1px; border-radius: 3px; z-index: 10; animation: badgeNewGlow 2s ease-in-out infinite;">BELIEBTESTES</div>
+                    <!-- Image Slider -->
+                    <div style="position: relative; background: #000; overflow: hidden; min-height: 300px;">
+                        <div id="shop-cardholder-slider" style="display: flex; transition: transform 0.5s ease-in-out; transform: translateX(0%); height: 300px;">
+                            <div style="min-width: 100%; padding: 30px; text-align: center; display: flex; align-items: center; justify-content: center; background: #000;">
+                                <img src="images/WhatsApp Image 2026-03-23 at 22.23.56.jpeg" style="max-height: 280px; max-width: 90%; object-fit: contain;">
+                            </div>
+                            <div style="min-width: 100%; padding: 30px; text-align: center; display: flex; align-items: center; justify-content: center; background: #000;">
+                                <img src="images/WhatsApp Image 2026-03-23 at 22.23.56 (1).jpeg" style="max-height: 280px; max-width: 90%; object-fit: contain;">
+                            </div>
+                            <div style="min-width: 100%; padding: 30px; text-align: center; display: flex; align-items: center; justify-content: center; background: #000;">
+                                <img src="images/WhatsApp Image 2026-03-23 at 22.23.56 (2).jpeg" style="max-height: 280px; max-width: 90%; object-fit: contain;">
+                            </div>
+                            <div style="min-width: 100%; padding: 30px; text-align: center; display: flex; align-items: center; justify-content: center; background: #000;">
+                                <img src="images/WhatsApp Image 2026-03-23 at 22.23.57.jpeg" style="max-height: 280px; max-width: 90%; object-fit: contain;">
+                            </div>
+                            <div style="min-width: 100%; padding: 30px; text-align: center; display: flex; align-items: center; justify-content: center; background: #000;">
+                                <img src="images/WhatsApp Image 2026-03-23 at 22.23.57 (1).jpeg" style="max-height: 280px; max-width: 90%; object-fit: contain;">
+                            </div>
+                        </div>
+                        
+                        <!-- Navigation Arrows -->
+                        <button onclick="shopCardholderSliderPrev()" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: rgba(197, 160, 89, 0.8); border: none; color: #000; font-size: 1.5rem; padding: 8px 12px; cursor: pointer; border-radius: 4px; transition: 0.3s; font-weight: 900; z-index: 10;">‹</button>
+                        <button onclick="shopCardholderSliderNext()" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: rgba(197, 160, 89, 0.8); border: none; color: #000; font-size: 1.5rem; padding: 8px 12px; cursor: pointer; border-radius: 4px; transition: 0.3s; font-weight: 900; z-index: 10;">›</button>
+                        
+                        <!-- Dots Indicator -->
+                        <div style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 10;">
+                            <div class="shop-ch-dot" onclick="shopCardholderSliderGo(0)" style="width: 10px; height: 10px; background: var(--gold); border-radius: 50%; cursor: pointer; transition: 0.3s;"></div>
+                            <div class="shop-ch-dot" onclick="shopCardholderSliderGo(1)" style="width: 10px; height: 10px; background: #555; border-radius: 50%; cursor: pointer; transition: 0.3s;"></div>
+                            <div class="shop-ch-dot" onclick="shopCardholderSliderGo(2)" style="width: 10px; height: 10px; background: #555; border-radius: 50%; cursor: pointer; transition: 0.3s;"></div>
+                            <div class="shop-ch-dot" onclick="shopCardholderSliderGo(3)" style="width: 10px; height: 10px; background: #555; border-radius: 50%; cursor: pointer; transition: 0.3s;"></div>
+                            <div class="shop-ch-dot" onclick="shopCardholderSliderGo(4)" style="width: 10px; height: 10px; background: #555; border-radius: 50%; cursor: pointer; transition: 0.3s;"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="padding: 30px;">
+                        <h4 style="font-family: 'Cinzel'; color: var(--gold); margin-bottom: 10px; letter-spacing: 2px;">PULSARIO CARDHOLDER</h4>
+                        <p style="font-size: 0.7rem; color: var(--gray); margin-bottom: 30px;">Premium Kartenhalter</p>
+                        <button class="btn-checkout" onclick="showCardholderInfo()" style="margin-bottom: 10px;">MEHR ERFAHREN</button>
+                        <button class="opt-node" style="width: 100%; padding: 15px; border-color: var(--gold); color: var(--gold);" onclick="nav('cardholder-configurator')">KONFIGURIEREN</button>
                     </div>
                 </div>
             </div>
 
-            <div class="legal-notice important" style="margin-top: 80px;">
+
+            <div class="legal-notice important" style="margin-top: 40px;">
                 <strong>⚠️ WICHTIGER HINWEIS:</strong> Der Kaufvertrag kommt erst mit erfolgreicher Zahlung zustande. Alle Preise sind Bruttopreise in EUR. Der Versand erfolgt weltweit via DHL oder Österreichische Post nach Ihrer Wahl. .</strong>
             </div>
         </section>
@@ -2790,45 +3011,211 @@
             </div>
         </div>
 
+        <!-- CARDHOLDER INFO MODAL -->
+        <div id="cardholder-info-modal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.95); z-index: 2000; padding: 40px 20px; overflow-y: auto;">
+            <div style="max-width: 900px; margin: 0 auto; background: #050505; border: 1px solid var(--gold); padding: 50px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                    <h2 style="font-family: 'Cinzel'; font-size: 2rem; color: var(--gold); margin: 0;">PULSARIO CARDHOLDER</h2>
+                    <button onclick="closeCardholderModal()" style="background: none; border: none; font-size: 2rem; color: var(--gold); cursor: pointer; padding: 0;">&times;</button>
+                </div>
+                
+                <!-- Image Slider -->
+                <div style="position: relative; margin-bottom: 40px; background: #000; border: 1px solid #111; overflow: hidden; border-radius: 6px;">
+                    <div id="cardholder-slider" style="display: flex; transition: transform 0.5s ease-in-out; transform: translateX(0%);">
+                        <div style="min-width: 100%; padding: 40px; text-align: center; background: #000;">
+                            <img src="images/WhatsApp Image 2026-03-23 at 22.23.56.jpeg" style="max-height: 400px; max-width: 100%; object-fit: contain;">
+                        </div>
+                        <div style="min-width: 100%; padding: 40px; text-align: center; background: #000;">
+                            <img src="images/WhatsApp Image 2026-03-23 at 22.23.56 (1).jpeg" style="max-height: 400px; max-width: 100%; object-fit: contain;">
+                        </div>
+                        <div style="min-width: 100%; padding: 40px; text-align: center; background: #000;">
+                            <img src="images/WhatsApp Image 2026-03-23 at 22.23.56 (2).jpeg" style="max-height: 400px; max-width: 100%; object-fit: contain;">
+                        </div>
+                        <div style="min-width: 100%; padding: 40px; text-align: center; background: #000;">
+                            <img src="images/WhatsApp Image 2026-03-23 at 22.23.57.jpeg" style="max-height: 400px; max-width: 100%; object-fit: contain;">
+                        </div>
+                        <div style="min-width: 100%; padding: 40px; text-align: center; background: #000;">
+                            <img src="images/WhatsApp Image 2026-03-23 at 22.23.57 (1).jpeg" style="max-height: 400px; max-width: 100%; object-fit: contain;">
+                        </div>
+                    </div>
+                    
+                    <!-- Navigation Arrows -->
+                    <button onclick="cardholderSliderPrev()" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); background: rgba(197, 160, 89, 0.8); border: none; color: #000; font-size: 2rem; padding: 10px 18px; cursor: pointer; border-radius: 4px; transition: 0.3s; font-weight: 900;">‹</button>
+                    <button onclick="cardholderSliderNext()" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); background: rgba(197, 160, 89, 0.8); border: none; color: #000; font-size: 2rem; padding: 10px 18px; cursor: pointer; border-radius: 4px; transition: 0.3s; font-weight: 900;">›</button>
+                    
+                    <!-- Dots Indicator -->
+                    <div style="position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px;">
+                        <div class="ch-dot" onclick="cardholderSliderGo(0)" style="width: 12px; height: 12px; background: var(--gold); border-radius: 50%; cursor: pointer; transition: 0.3s;"></div>
+                        <div class="ch-dot" onclick="cardholderSliderGo(1)" style="width: 12px; height: 12px; background: #555; border-radius: 50%; cursor: pointer; transition: 0.3s;"></div>
+                        <div class="ch-dot" onclick="cardholderSliderGo(2)" style="width: 12px; height: 12px; background: #555; border-radius: 50%; cursor: pointer; transition: 0.3s;"></div>
+                        <div class="ch-dot" onclick="cardholderSliderGo(3)" style="width: 12px; height: 12px; background: #555; border-radius: 50%; cursor: pointer; transition: 0.3s;"></div>
+                        <div class="ch-dot" onclick="cardholderSliderGo(4)" style="width: 12px; height: 12px; background: #555; border-radius: 50%; cursor: pointer; transition: 0.3s;"></div>
+                    </div>
+                </div>
+                
+                <div style="color: var(--white); line-height: 1.8; font-size: 0.95rem;">
+                    <p><strong style="color: var(--gold);">Kompakt & Praktisch</strong></p>
+                    <p>Der PULSARIO Cardholder ist die perfekte Ergänzung zu Ihrer Smartwatch. Klein, leicht und unglaublich praktisch – Ihre wichtigsten Karten immer griffbereit.</p>
+                    
+                    <p style="margin-top: 25px;"><strong style="color: var(--gold);">Warum der PULSARIO Cardholder?</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li style="margin-bottom: 12px;">✓ <strong>Extrem Klein:</strong> Passt problemlos in die Hosentasche</li>
+                        <li style="margin-bottom: 12px;">✓ <strong>Karten Sicherheit:</strong> Keine Karte oder Schein fliegt raus – alles sitzt fest</li>
+                        <li style="margin-bottom: 12px;">✓ <strong>Minimalistisches Design:</strong> Elegant und zeitlos, nicht aufdringlich</li>
+                        <li style="margin-bottom: 12px;">✓ <strong>Individualisierbar:</strong> Material, Farbe und Details nach Ihren Wünschen</li>
+                        <li style="margin-bottom: 12px;">✓ <strong>Premium Materialien:</strong> Wählen Sie zwischen nachhaltigem PLA oder robustem PETG</li>
+                        <li style="margin-bottom: 12px;">✓ <strong>Perfekt für den Alltag:</strong> Essentieller Begleiter für minimalistisches Leben</li>
+                    </ul>
+                    
+                    <p style="margin-top: 25px;"><strong style="color: var(--gold);">Ideal für:</strong> Menschen, die Wert auf Minimalismus legen, wenig Ballast mit sich tragen möchten und dennoch ihre wichtigsten Karten sicher dabei haben.</p>
+                    
+                    <p style="margin-top: 30px; font-style: italic; color: var(--gray);">
+                        Jeder Cardholder wird individuell nach Ihren Vorgaben gefertigt. Wählen Sie Ihr Material, Ihre Farbe und Ihre Extras im Konfigurator.
+                    </p>
+                </div>
+                
+                <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #222;">
+                    <button onclick="closeCardholderModal()" class="btn-checkout" style="width: 100%;">SCHLIESSEN</button>
+                </div>
+            </div>
+        </div>
+
         <!-- ===== CONFIGURATOR PAGE ===== -->
         <section id="configurator" class="page">
-            <span class="section-tag">STEPPER</span>
+            <span class="section-tag">SMARTWATCH</span>
             <h2 class="section-title">BAUEN SIE IHRE PULSARIO</h2>
             
             <div class="stepper-container">
                 <div class="stepper-nav">
-                    <div class="stepper-item active" onclick="switchStep(1)">SCHRITT 1<br><span style="font-size: 0.6rem; opacity: 0.7;">DISPLAY</span></div>
-                    <div class="stepper-item" onclick="switchStep(2)">SCHRITT 2<br><span style="font-size: 0.6rem; opacity: 0.7;">GEHÄUSE</span></div>
-                    <div class="stepper-item" onclick="switchStep(3)">SCHRITT 3<br><span style="font-size: 0.6rem; opacity: 0.7;">ARMBAND</span></div>
-                    <div class="stepper-item" onclick="switchStep(4)">SCHRITT 4<br><span style="font-size: 0.6rem; opacity: 0.7;">GRAVUR</span></div>
-                    <div class="stepper-item" onclick="switchStep(5)">SCHRITT 5<br><span style="font-size: 0.6rem; opacity: 0.7;">SUMMARY</span></div>
+                    <div class="stepper-item active" onclick="watchSwitchStep(1)">SCHRITT 1<br><span style="font-size: 0.6rem; opacity: 0.7;">DISPLAY</span></div>
+                    <div class="stepper-item" onclick="watchSwitchStep(2)">SCHRITT 2<br><span style="font-size: 0.6rem; opacity: 0.7;">GEHÄUSE</span></div>
+                    <div class="stepper-item" onclick="watchSwitchStep(3)">SCHRITT 3<br><span style="font-size: 0.6rem; opacity: 0.7;">ARMBAND</span></div>
+                    <div class="stepper-item" onclick="watchSwitchStep(4)">SCHRITT 4<br><span style="font-size: 0.6rem; opacity: 0.7;">SUMMARY</span></div>
                 </div>
 
                 <div style="flex: 1;">
-                    <!-- STEP 1: DISPLAY (SINGLE-SELECT, REQUIRED) -->
-                    <div id="step-1" class="stepper-content active">
-                        <h3>DISPLAYGRÖSSE WÄHLEN</h3>
-                        <p style="color: var(--gray); margin-bottom: 30px;">Wählen Sie die Displaygröße, die zu Ihnen passt. Mehr Fläche, bessere Lesbarkeit im Alltag.</p>
+                    <!-- WATCH STEP 1: DISPLAY -->
+                    <div id="watch-step-1" class="stepper-content active">
+                        <h3>DISPLAY</h3>
+                        <p style="color: var(--gray); margin-bottom: 30px;">Die PULSARIO wird mit dem 1.46" Display ausgestattet - optimale Größe für beste Lesbarkeit und Bedienbarkeit.</p>
+                        <div style="background: #050505; border: 2px solid var(--gold); padding: 40px; margin-bottom: 40px; text-align: center; border-radius: 6px;">
+                            <div style="font-size: 3rem; color: var(--gold); margin-bottom: 20px;">📱</div>
+                            <div style="color: var(--gold); font-weight: 900; font-size: 1.5rem; margin-bottom: 10px;">1.46" DISPLAY</div>
+                            <div style="color: var(--gray); font-size: 0.9rem; margin-bottom: 25px;">Perfekt für alltägliche Nutzung<br>Beste Lesbarkeit & Bedienbarkeit</div>
+                            <div style="font-family: 'Cinzel'; font-size: 2rem; color: var(--gold); font-weight: 900;">€45</div>
+                        </div>
+                        <button class="btn-checkout" style="margin-top: 40px; width: 100%;" onclick="watchSwitchStep(2)">WEITER ZUM GEHÄUSE →</button>
+                    </div>
+
+                    <!-- WATCH STEP 2: GEHÄUSE -->
+                    <div id="watch-step-2" class="stepper-content">
+                        <h3>GEHÄUSEMATERIAL WÄHLEN</h3>
+                        <p style="color: var(--gray); margin-bottom: 30px;">Wählen Sie das Material für Ihr Gehäuse. Robust und langlebig für den alltäglichen Einsatz.</p>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;" class="config-grid-responsive">
                             <div class="opt-box">
-                                <button class="opt-node active" style="width: 100%; padding: 30px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 150px;" data-category="display" data-value="1.28 Zoll" data-price="49" onclick="selectOption('display', '1.28 Zoll', this, true)">
-                                    <div style="font-size: 2rem; color: var(--gold); margin-bottom: 15px;">📱</div>
-                                    <span style="color: var(--gold); font-weight: 900; font-size: 1rem;">ESP32-S3 1.28"</span>
-                                    <span style="color: var(--gray); font-size: 0.7rem; margin-top: 10px;">STANDARD EDITION</span>
-                                    <span style="color: var(--gold); font-weight: 900; margin-top: 15px; font-size: 1.2rem;">€49</span>
+                                <button class="opt-node active" style="width: 100%; padding: 30px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 150px;" data-category="watch-case" data-value="PLA" data-price="10" onclick="watchSelectOption('case', 'PLA', this)">
+                                    <div style="font-size: 2rem; color: var(--gold); margin-bottom: 15px;">🌱</div>
+                                    <span style="color: var(--gold); font-weight: 900; font-size: 1rem;">PLA GEHÄUSE</span>
+                                    <span style="color: var(--gray); font-size: 0.7rem; margin-top: 10px;">Leicht & Nachhaltig</span>
+                                    <span style="color: var(--gold); font-weight: 900; margin-top: 15px; font-size: 1.2rem;">€10</span>
                                 </button>
                             </div>
                             <div class="opt-box">
-                                <button class="opt-node" style="width: 100%; padding: 30px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 150px;" data-category="display" data-value="1.46 Zoll" data-price="59" onclick="selectOption('display', '1.46 Zoll', this, true)">
-                                    <div style="font-size: 2rem; color: var(--gold); margin-bottom: 15px;">📱</div>
-                                    <span style="color: var(--gold); font-weight: 900; font-size: 1rem;">ESP32-S3 1.46"</span>
-                                    <span style="color: var(--gray); font-size: 0.7rem; margin-top: 10px;">XL EDITION – MEHR SICHTBARKEIT</span>
-                                    <span style="color: var(--gold); font-weight: 900; margin-top: 15px; font-size: 1.2rem;">€59</span>
+                                <button class="opt-node" style="width: 100%; padding: 30px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 150px;" data-category="watch-case" data-value="PETG" data-price="12" onclick="watchSelectOption('case', 'PETG', this)">
+                                    <div style="font-size: 2rem; color: var(--gold); margin-bottom: 15px;">💎</div>
+                                    <span style="color: var(--gold); font-weight: 900; font-size: 1rem;">PETG GEHÄUSE</span>
+                                    <span style="color: var(--gray); font-size: 0.7rem; margin-top: 10px;">Robust & Langlebig</span>
+                                    <span style="color: var(--gold); font-weight: 900; margin-top: 15px; font-size: 1.2rem;">€12</span>
                                 </button>
                             </div>
                         </div>
-                        <button class="btn-checkout" style="margin-top: 40px; width: 100%;" onclick="switchStep(2)">WEITER ZU GEHÄUSE →</button>
+                        <button class="btn-checkout" style="margin-top: 40px; width: 100%;" onclick="watchSwitchStep(3)">WEITER ZUM ARMBAND →</button>
                     </div>
+
+                    <!-- WATCH STEP 3: ARMBAND (MULTI-SELECT) -->
+                    <div id="watch-step-3" class="stepper-content">
+                        <h3>ARMBÄNDER WÄHLEN</h3>
+                        <p style="color: var(--gray); margin-bottom: 30px;">Wählen Sie eines oder beide Armbänder. Sie können Leder und Edelstahl kombinieren!</p>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;" class="config-grid-responsive">
+                            <div class="opt-box">
+                                <button class="opt-node active" style="width: 100%; padding: 30px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 150px;" data-category="watch-band" data-value="Leder" data-price="10" onclick="watchToggleBand('Leder', this)">
+                                    <div style="font-size: 2rem; margin-bottom: 15px;">🎨</div>
+                                    <span style="color: var(--gold); font-weight: 900; font-size: 1rem;">LEDER ARMBAND</span>
+                                    <span style="color: var(--gray); font-size: 0.7rem; margin-top: 10px;">Komfortabel & Elegant</span>
+                                    <span style="color: var(--gold); font-weight: 900; margin-top: 15px; font-size: 1.2rem;">€10</span>
+                                </button>
+                            </div>
+                            <div class="opt-box">
+                                <button class="opt-node" style="width: 100%; padding: 30px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 150px;" data-category="watch-band" data-value="Edelstahl" data-price="15" onclick="watchToggleBand('Edelstahl', this)">
+                                    <div style="font-size: 2rem; color: var(--gold); margin-bottom: 15px;">👑</div>
+                                    <span style="color: var(--gold); font-weight: 900; font-size: 1rem;">EDELSTAHL ARMBAND</span>
+                                    <span style="color: var(--gray); font-size: 0.7rem; margin-top: 10px;">Premium & Robust</span>
+                                    <span style="color: var(--gold); font-weight: 900; margin-top: 15px; font-size: 1.2rem;">€15</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div id="selected-watch-bands-box" style="background: #050505; border: 1px solid #111; padding: 20px; margin-bottom: 20px; margin-top: 20px;">
+                            <p style="font-size: 0.7rem; color: var(--gray); margin-bottom: 15px; text-transform: uppercase; letter-spacing: 2px;">Ausgewählte Armbänder:</p>
+                            <div id="selected-watch-bands-list" style="display: flex; flex-wrap: wrap; gap: 10px;">
+                                <span style="color: var(--gold); font-weight: 900; font-size: 0.85rem;">Leder</span>
+                            </div>
+                        </div>
+                        <button class="btn-checkout" style="margin-top: 40px; width: 100%;" onclick="watchSwitchStep(4)">WEITER ZU SUMMARY →</button>
+                    </div>
+
+                    <!-- WATCH STEP 4: SUMMARY -->
+                    <div id="watch-step-4" class="stepper-content">
+                        <h3>ZUSAMMENFASSUNG & BESTÄTIGUNG</h3>
+                        <div style="background: #050505; border: 1px solid #111; padding: 40px; margin-top: 30px; margin-bottom: 40px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #111;">
+                                <span style="color: var(--gray);">DISPLAY:</span>
+                                <span style="color: var(--white); font-weight: 900;" id="watch-summary-display">1.46 Zoll</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #111;">
+                                <span style="color: var(--gray);">GEHÄUSE:</span>
+                                <span style="color: var(--white); font-weight: 900;" id="watch-summary-case">PLA</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #111;">
+                                <span style="color: var(--gray);">ARMBAND:</span>
+                                <span style="color: var(--white); font-weight: 900;" id="watch-summary-band">Leder</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #111; margin-top: 20px;">
+                                <span style="color: var(--gray);">LIEFERZEIT:</span>
+                                <span style="color: var(--white); font-weight: 900;" id="watch-summary-shipping-time">5–14 Werktage</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-top: 30px; font-family: 'Cinzel'; font-size: 1.5rem; color: var(--gold); font-weight: 900;">
+                                <span>GESAMTPREIS:</span>
+                                <span id="watch-summary-price">€65</span>
+                            </div>
+                        </div>
+                        <div style="background: rgba(0,0,0,0.5); border: 1px solid #333; padding: 25px; margin-bottom: 30px; font-size: 0.75rem; color: var(--gray); line-height: 1.8;">
+                            <strong style="color: var(--white); display: block; margin-bottom: 15px;">📸 ANLEITUNG - SCREENSHOT SENDEN</strong>
+                            <p style="margin-bottom: 12px;"><strong style="color: var(--gold);">1. Screenshot Machen:</strong> Klicken Sie auf den Button unten um einen Screenshot Ihrer Konfiguration zu erstellen.</p>
+                            <p style="margin-bottom: 12px;"><strong style="color: var(--gold);">2. E-Mail mit Screenshot:</strong> Senden Sie den Screenshot (enthält Zahlungsbestätigung + Bestellzusammenfassung) an: <strong style="color: var(--white);">pulsario.official@gmail.com</strong></p>
+                            <p style="margin-bottom: 0;"><strong style="color: var(--gold);">3. Zahlungsadresse:</strong> Überweisen Sie <strong style="color: var(--white);" id="watch-payment-amount">€65</strong> auf folgende IBAN:</p>
+                            <div style="background: #000; border: 1px solid #555; padding: 15px; margin-top: 12px; border-radius: 4px; font-family: monospace; text-align: center;">
+                                <div style="color: var(--gold); font-weight: 900; font-size: 0.85rem; letter-spacing: 1px; margin-bottom: 5px;">IBAN</div>
+                                <div style="color: var(--white); font-weight: 900; font-size: 1rem;">AT93 1200 0100 4745 4342</div>
+                                <div style="color: var(--gray); font-size: 0.75rem; margin-top: 8px;">Inhaber: PULSARIO</div>
+                            </div>
+                            <p style="margin-top: 12px; margin-bottom: 0; color: #999; font-size: 0.7rem; font-style: italic;">Nach Zahlungsempfang wird Ihre Pulsario produziert und versendet (5–14 Werktage).</p>
+                        </div>
+                        <button class="btn-checkout" style="width: 100%; margin-bottom: 20px;" onclick="takeWatchConfiguratorScreenshot()">📸 SCREENSHOT MACHEN</button>
+                        <div style="background: #050505; border: 2px solid var(--gold); padding: 30px; margin-bottom: 20px; text-align: center; border-radius: 6px;">
+                            <div style="color: var(--gray); font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 15px;">✉️ SCHREIBEN SIE AN:</div>
+                            <div style="font-size: 1.2rem; color: var(--white); font-weight: 600; word-break: break-all;">pulsario.official@gmail.com</div>
+                        </div>
+                        <button class="opt-node" style="width: 100%; max-width: 400px; padding: 12px 25px;" onclick="nav('home')">← ZURÜCK ZUR HOME</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STICKY BOTTOM BAR FOR MOBILE -->
+            <div id="watch-config-sticky-bar" style="display: none; position: fixed; bottom: 0; left: 0; right: 0; background: rgba(5, 5, 5, 0.98); border-top: 1px solid var(--gold); padding: 15px 20px; z-index: 500; display: flex; justify-content: space-between; align-items: center; gap: 20px;">
+                <div style="font-family: 'Cinzel'; font-weight: 900; font-size: 1.2rem; color: var(--gold);">€<span id="watch-sticky-price">65</span></div>
+                <button class="btn-checkout" id="watch-sticky-next-btn" onclick="watchGoToNextStep()" style="padding: 12px 25px; white-space: nowrap;">WEITER →</button>
+            </div>
+        </section>
 
                     <!-- STEP 2: CASE (MULTI-SELECT LIKE BANDS - NO CHECKBOX) -->
                     <div id="step-2" class="stepper-content">
@@ -3024,6 +3411,149 @@
             </div>
         </section>
 
+        <!-- ===== CARDHOLDER CONFIGURATOR PAGE ===== -->
+        <section id="cardholder-configurator" class="page">
+            <span class="section-tag">CARDHOLDER</span>
+            <h2 class="section-title">BAUEN SIE IHREN CARDHOLDER</h2>
+            
+            <div class="stepper-container">
+                <div class="stepper-nav">
+                    <div class="stepper-item active" onclick="chSwitchStep(1)">SCHRITT 1<br><span style="font-size: 0.6rem; opacity: 0.7;">MATERIAL</span></div>
+                    <div class="stepper-item" onclick="chSwitchStep(2)">SCHRITT 2<br><span style="font-size: 0.6rem; opacity: 0.7;">FARBE</span></div>
+                    <div class="stepper-item" onclick="chSwitchStep(3)">SCHRITT 3<br><span style="font-size: 0.6rem; opacity: 0.7;">SCHRAUBEN</span></div>
+                    <div class="stepper-item" onclick="chSwitchStep(4)">SCHRITT 4<br><span style="font-size: 0.6rem; opacity: 0.7;">SUMMARY</span></div>
+                </div>
+
+                <div style="flex: 1;">
+                    <!-- CARDHOLDER STEP 1: MATERIAL -->
+                    <div id="ch-step-1" class="stepper-content active">
+                        <h3>MATERIAL WÄHLEN</h3>
+                        <p style="color: var(--gray); margin-bottom: 30px;">Wählen Sie das Material für Ihren Cardholder. PLA ist leicht und biologisch abbaubar, PETG ist robuster und langlebiger.</p>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;" class="config-grid-responsive">
+                            <div class="opt-box">
+                                <button class="opt-node active" style="width: 100%; padding: 30px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 150px;" data-category="ch-material" data-value="PLA" data-price="10" onclick="chSelectMaterial('PLA', this)">
+                                    <div style="font-size: 2rem; color: var(--gold); margin-bottom: 15px;">🌱</div>
+                                    <span style="color: var(--gold); font-weight: 900; font-size: 1rem;">PLA MATERIAL</span>
+                                    <span style="color: var(--gray); font-size: 0.7rem; margin-top: 10px;">LEICHT & NACHHALTIG</span>
+                                    <span style="color: var(--gold); font-weight: 900; margin-top: 15px; font-size: 1.2rem;">€10</span>
+                                </button>
+                            </div>
+                            <div class="opt-box">
+                                <button class="opt-node" style="width: 100%; padding: 30px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 150px;" data-category="ch-material" data-value="PETG" data-price="12" onclick="chSelectMaterial('PETG', this)">
+                                    <div style="font-size: 2rem; color: var(--gold); margin-bottom: 15px;">💎</div>
+                                    <span style="color: var(--gold); font-weight: 900; font-size: 1rem;">PETG MATERIAL</span>
+                                    <span style="color: var(--gray); font-size: 0.7rem; margin-top: 10px;">ROBUST & LANGLEBIG</span>
+                                    <span style="color: var(--gold); font-weight: 900; margin-top: 15px; font-size: 1.2rem;">€12</span>
+                                </button>
+                            </div>
+                        </div>
+                        <button class="btn-checkout" style="margin-top: 40px; width: 100%;" onclick="chSwitchStep(2)">WEITER ZU FARBE →</button>
+                    </div>
+
+                    <!-- CARDHOLDER STEP 2: FARBE -->
+                    <div id="ch-step-2" class="stepper-content">
+                        <h3>FARBE WÄHLEN</h3>
+                        <p style="color: var(--gray); margin-bottom: 30px;">Wählen Sie Ihre Lieblingsfarbe für den Cardholder. Beide Farben sind zum gleichen Preis erhältlich.</p>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; margin-bottom: 20px;" class="config-grid-responsive">
+                            <div class="opt-box">
+                                <button class="opt-node active" style="width: 100%; padding: 30px; text-align: center;" data-category="ch-color" data-value="Weiß" data-price="0" onclick="chSelectColor('Weiß', this)">
+                                    <div style="font-size: 2rem; margin-bottom: 15px;">⚪</div>
+                                    <strong>WEISS</strong>
+                                    <p style="font-size: 0.7rem; color: var(--gray); margin-top: 10px; line-height: 1.4;">Sauber & elegant</p>
+                                    <span style="color: var(--gold); font-weight: 900; margin-top: 15px; display: block; font-size: 1.2rem;">INKLUSIVE</span>
+                                </button>
+                            </div>
+                            <div class="opt-box">
+                                <button class="opt-node" style="width: 100%; padding: 30px; text-align: center;" data-category="ch-color" data-value="Schwarz" data-price="0" onclick="chSelectColor('Schwarz', this)">
+                                    <div style="font-size: 2rem; margin-bottom: 15px;">⬛</div>
+                                    <strong>SCHWARZ</strong>
+                                    <p style="font-size: 0.7rem; color: var(--gray); margin-top: 10px; line-height: 1.4;">Klassisch & zeitlos</p>
+                                    <span style="color: var(--gold); font-weight: 900; margin-top: 15px; display: block; font-size: 1.2rem;">INKLUSIVE</span>
+                                </button>
+                            </div>
+                        </div>
+                        <button class="btn-checkout" style="margin-top: 40px; width: 100%;" onclick="chSwitchStep(3)">WEITER ZU SCHRAUBEN →</button>
+                    </div>
+
+                    <!-- CARDHOLDER STEP 3: SCHRAUBEN -->
+                    <div id="ch-step-3" class="stepper-content">
+                        <h3>SCHRAUBEN - JA ODER NEIN?</h3>
+                        <p style="color: var(--gray); margin-bottom: 30px;">Wählen Sie, ob Sie Schrauben mit Ihrem Cardholder möchten oder den minimalistischen Look ohne Schrauben.</p>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;" class="config-grid-responsive">
+                            <div class="opt-box">
+                                <button class="opt-node active" style="width: 100%; padding: 30px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 150px;" data-category="ch-screws" data-value="Mit Schrauben" data-price="2" onclick="chSelectScrews('Mit Schrauben', this)">
+                                    <div style="font-size: 2rem; margin-bottom: 15px;">🔩</div>
+                                    <span style="color: var(--gold); font-weight: 900; font-size: 1rem;">MIT SCHRAUBEN</span>
+                                    <span style="color: var(--gray); font-size: 0.7rem; margin-top: 10px;">Klassisches Design</span>
+                                    <span style="color: var(--gold); font-weight: 900; margin-top: 15px; font-size: 1.2rem;">€2</span>
+                                </button>
+                            </div>
+                            <div class="opt-box">
+                                <button class="opt-node" style="width: 100%; padding: 30px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 150px;" data-category="ch-screws" data-value="Ohne Schrauben" data-price="0" onclick="chSelectScrews('Ohne Schrauben', this)">
+                                    <div style="font-size: 2rem; margin-bottom: 15px;">✨</div>
+                                    <span style="color: var(--gold); font-weight: 900; font-size: 1rem;">OHNE SCHRAUBEN</span>
+                                    <span style="color: var(--gray); font-size: 0.7rem; margin-top: 10px;">Minimalistisch</span>
+                                    <span style="color: var(--gold); font-weight: 900; margin-top: 15px; font-size: 1.2rem;">KOSTENLOS</span>
+                                </button>
+                            </div>
+                        </div>
+                        <button class="btn-checkout" style="margin-top: 40px; width: 100%;" onclick="chSwitchStep(4)">WEITER ZU SUMMARY →</button>
+                    </div>
+
+                    <!-- CARDHOLDER STEP 4: SUMMARY -->
+                    <div id="ch-step-4" class="stepper-content">
+                        <h3>ZUSAMMENFASSUNG & BESTÄTIGUNG</h3>
+                        <div style="background: #050505; border: 1px solid #111; padding: 40px; margin-top: 30px; margin-bottom: 40px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #111;">
+                                <span style="color: var(--gray);">MATERIAL:</span>
+                                <span style="color: var(--white); font-weight: 900;" id="ch-summary-material">PLA</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #111;">
+                                <span style="color: var(--gray);">FARBE:</span>
+                                <span style="color: var(--white); font-weight: 900;" id="ch-summary-color">Weiß</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #111;">
+                                <span style="color: var(--gray);">SCHRAUBEN:</span>
+                                <span style="color: var(--white); font-weight: 900;" id="ch-summary-screws">Mit Schrauben</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #111; margin-top: 20px;">
+                                <span style="color: var(--gray);">LIEFERZEIT:</span>
+                                <span style="color: var(--white); font-weight: 900;" id="ch-summary-shipping-time">5–14 Werktage</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-top: 30px; font-family: 'Cinzel'; font-size: 1.5rem; color: var(--gold); font-weight: 900;">
+                                <span>GESAMTPREIS:</span>
+                                <span id="ch-summary-price">€12</span>
+                            </div>
+                        </div>
+                        <div style="background: rgba(0,0,0,0.5); border: 1px solid #333; padding: 25px; margin-bottom: 30px; font-size: 0.75rem; color: var(--gray); line-height: 1.8;">
+                            <strong style="color: var(--white); display: block; margin-bottom: 15px;">📸 ANLEITUNG - SCREENSHOT SENDEN</strong>
+                            <p style="margin-bottom: 12px;"><strong style="color: var(--gold);">1. Screenshot Machen:</strong> Klicken Sie auf den Button unten um einen Screenshot Ihrer Konfiguration zu erstellen.</p>
+                            <p style="margin-bottom: 12px;"><strong style="color: var(--gold);">2. E-Mail mit Screenshot:</strong> Senden Sie den Screenshot (enthält Zahlungsbestätigung + Bestellzusammenfassung) an: <strong style="color: var(--white);">pulsario.official@gmail.com</strong></p>
+                            <p style="margin-bottom: 0;"><strong style="color: var(--gold);">3. Zahlungsadresse:</strong> Überweisen Sie <strong style="color: var(--white);" id="ch-payment-amount">€12</strong> auf folgende IBAN:</p>
+                            <div style="background: #000; border: 1px solid #555; padding: 15px; margin-top: 12px; border-radius: 4px; font-family: monospace; text-align: center;">
+                                <div style="color: var(--gold); font-weight: 900; font-size: 0.85rem; letter-spacing: 1px; margin-bottom: 5px;">IBAN</div>
+                                <div style="color: var(--white); font-weight: 900; font-size: 1rem;">AT93 1200 0100 4745 4342</div>
+                                <div style="color: var(--gray); font-size: 0.75rem; margin-top: 8px;">Inhaber: PULSARIO</div>
+                            </div>
+                            <p style="margin-top: 12px; margin-bottom: 0; color: #999; font-size: 0.7rem; font-style: italic;">Nach Zahlungsempfang wird Ihr Cardholder produziert und versendet (5–14 Werktage).</p>
+                        </div>
+                        <button class="btn-checkout" style="width: 100%; margin-bottom: 20px;" onclick="takeConfiguratorScreenshot()">📸 SCREENSHOT MACHEN</button>
+                        <div style="background: #050505; border: 2px solid var(--gold); padding: 30px; margin-bottom: 20px; text-align: center; border-radius: 6px;">
+                            <div style="color: var(--gray); font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 15px;">✉️ SCHREIBEN SIE AN:</div>
+                            <div style="font-size: 1.2rem; color: var(--white); font-weight: 600; word-break: break-all;">pulsario.official@gmail.com</div>
+                        </div>
+                        <button class="opt-node" style="width: 100%; max-width: 400px; padding: 12px 25px;" onclick="nav('home')">← ZURÜCK ZUR HOME</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STICKY BOTTOM BAR FOR MOBILE -->
+            <div id="ch-config-sticky-bar" style="display: none; position: fixed; bottom: 0; left: 0; right: 0; background: rgba(5, 5, 5, 0.98); border-top: 1px solid var(--gold); padding: 15px 20px; z-index: 500; display: flex; justify-content: space-between; align-items: center; gap: 20px;">
+                <div style="font-family: 'Cinzel'; font-weight: 900; font-size: 1.2rem; color: var(--gold);">€<span id="ch-sticky-price">12</span></div>
+                <button class="btn-checkout" id="ch-sticky-next-btn" onclick="chGoToNextStep()" style="padding: 12px 25px; white-space: nowrap;">WEITER →</button>
+            </div>
+        </section>
+
         <!-- ===== FEATURES PAGE ===== -->
         <section id="features" class="page">
             <div style="position: absolute; top: 150px; right: 60px; opacity: 0.6; z-index: 0;">
@@ -3042,10 +3572,6 @@
 
             <!-- Feature 1: Vibration Wake -->
             <div class="feature-article">
-                <div class="feature-image">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800" alt="Junge Person mit Pulsario Uhr">
-                </div>
-                </div>
                 <div class="feature-text">
                     <h3>VIBRATION WAKE – SANFT & EFFEKTIV</h3>
                     <p>Vergessen Sie laute Wecker. Die intelligente Vibrationstechnologie von Pulsario weckt Sie sanft und diskret. Das System passt sich an Ihre Schlafphasen an und nutzt präzise haptische Impulse zum perfekten Zeitpunkt.</p>
@@ -3073,16 +3599,10 @@
                         <li>Einfache Einrichtung für Nutzer:innen mit Beeinträchtigungen</li>
                     </ul>
                 </div>
-                <div class="feature-image">
-                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800" alt="Person mit Behinderung trägt Pulsario">
-                </div>
             </div>
 
             <!-- Feature 3: Display -->
             <div class="feature-article">
-                <div class="feature-image">
-                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=800" alt="Person zeigt Pulsario Display">
-                </div>
                 <div class="feature-text">
                     <h3>HOCHAUFLÖSENDES DISPLAY – LESBAR BEI TAGESLICHT</h3>
                     <p>Das OLED-Display der Pulsario bietet klare Lesbarkeit selbst bei starkem Sonnenlicht. Mit zwei Größenoptionen (1.28" und 1.46") passt sich die Uhr Ihren Anforderungen an.</p>
@@ -3110,8 +3630,43 @@
                         <li>Unterschiedliche Display-Größen</li>
                     </ul>
                 </div>
-                <div class="feature-image">
-                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=800" alt="Verschiedene Menschen mit Pulsario">
+            </div>
+
+            <!-- Feature 5: Fertigung & 3D Druck -->
+            <div class="feature-article">
+                <div class="feature-image" style="width: 100%; max-width: 400px; margin: 0 auto;">
+                    <img src="images/Bambulap p1s" style="width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 6px;">
+                </div>
+                <div class="feature-text">
+                    <h3>3D-DRUCK & EIGENFERTIGUNG</h3>
+                    <p>Jede Pulsario wird in unserer eigenen Werkstatt mit modernster Technologie gefertigt. Wir nutzen präzise 3D-Drucker, um höchste Qualitätsstandards zu erreichen.</p>
+                    <p><strong>Unsere Fertigungstechnologie:</strong></p>
+                    <ul>
+                        <li>Bambu Lab P1S 3D-Drucker für höchste Präzision</li>
+                        <li>Materialauswahl: PLA (biologisch abbaubar) & PETG (robust)</li>
+                        <li>Vollständige Qualitätskontrolle nach dem Druck</li>
+                        <li>Schnelle Iterationen und Verbesserungen</li>
+                        <li>Nachhaltige Fertigung vor Ort</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Feature 6: Cardholder 3D Design -->
+            <div class="feature-article">
+                <div class="feature-image" style="width: 100%; max-width: 500px; margin: 0 auto;">
+                    <img src="images/Cardholder 3d model.jpeg" style="width: 100%; aspect-ratio: auto; object-fit: cover; border-radius: 6px; filter: drop-shadow(0 20px 60px rgba(197, 160, 89, 0.25));">
+                </div>
+                <div class="feature-text">
+                    <h3>PULSARIO CARDHOLDER – DESIGNTE HANDWERKSKUNST</h3>
+                    <p>Der Pulsario Cardholder ist nicht einfach ein Zubehör – er ist das Ergebnis präziser 3D-Konstruktion und fortgeschrittener Fertigungstechnologie. Jeder Cardholder wird mit derselben Sorgfalt hergestellt wie die Uhr selbst.</p>
+                    <p><strong>Das 3D-Design-System:</strong></p>
+                    <ul>
+                        <li>Professionelle CAD-Konstruktion für optimale Kartenlagerung</li>
+                        <li>RFID-Schutz durch intelligentes Material-Engineering</li>
+                        <li>Ergonomische Formen, die in der Hand liegen</li>
+                        <li>Verschiedene Materialien & Farben zur Wahl</li>
+                        <li>Personalisierungsoptionen: Gravur, Schrauben, Farbkombinationen</li>
+                    </ul>
                 </div>
             </div>
         </section>
@@ -3139,6 +3694,25 @@
                     <strong style="color: var(--white);">Pulsario begann als Idee im Klassenzimmer.</strong> Was als einfache Frage startete, wurde zu einem Projekt mit Haltung. 
                     Als Junior Company 2025 gegründet, haben wir uns das Ziel gesetzt, Eleganz und Technik zu vereinen – reduziert auf das Wesentliche, ohne Kompromisse bei Qualität und Funktion.
                 </p>
+
+                <!-- HTL Jenbach Section -->
+                <div style="background: #0a0a0a; border: 1px solid #111; overflow: hidden; margin-top: 40px; margin-bottom: 40px; border-radius: 4px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0; align-items: center;">
+                        <img src="images/Htl Jenbach.jpg" style="width: 100%; height: 100%; object-fit: cover; min-height: 300px;">
+                        <div style="padding: 40px;">
+                            <h4 style="color: var(--gold); margin-bottom: 20px; font-size: 1.1rem; letter-spacing: 2px;">WER WIR SIND</h4>
+                            <p style="color: var(--gray); font-size: 0.95rem; line-height: 2; margin-bottom: 20px;">
+                                Wir sind <strong style="color: var(--white);">Schüler und Ingenieure der HTL Jenbach</strong> in Österreich. 
+                                Unser technisches Wissen, unsere Leidenschaft für Präzision und unsere Liebe zum Detail bilden die Grundlage von Pulsario.
+                            </p>
+                            <ul style="color: var(--gray); font-size: 0.9rem; line-height: 2; margin-left: 20px;">
+                                <li>✓ <strong>Ausbildung:</strong> HTL Jenbach (Höhere Technische Lehranstalt)</li>
+                                <li>✓ <strong>Spezialisierung:</strong> Elektronik & Informationstechnologie</li>
+                                <li>✓ <strong>Philosophie:</strong> Von Ingenieuren für Nutzer, die Technik verstehen</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
                 
                 <h4 style="color: var(--gold); font-size: 1rem; margin-bottom: 20px; letter-spacing: 2px;">PULSARIO STEHT FÜR</h4>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 40px;">
@@ -3372,17 +3946,6 @@
                     Unser Ziel: eine durchdachte Smartwatch, die im Alltag wirklich funktioniert. Dabei setzen wir auf Transparenz und Qualität in jedem Schritt des Prozesses.
                 </p>
             </div>
-
-            <div style="margin-top: 80px; text-align: center; border: 1px solid var(--gold); padding: 60px; background: rgba(197, 160, 89, 0.02);">
-                <span style="background: var(--gold); color: black; padding: 5px 20px; font-weight: 900; letter-spacing: 5px; font-size: 0.7rem;">ELITE MEMBERSHIP</span>
-                <h4 style="font-family: 'Cinzel'; margin-top: 15px; font-size: 1.5rem; color: var(--gold);">VERPASSEN SIE KEINE NEWS</h4>
-                <p style="color: var(--gray); font-size: 0.6rem; margin-top: 10px; margin-bottom: 30px;">Melden Sie sich an und werden Sie ein PULSARIO Elite Member!</p>
-                <div style="display: flex; gap: 10px; justify-content: center;">
-                    <input type="email" id="news-newsletter-email" placeholder="IHRE EMAIL ADRESSE" required style="flex: 1; max-width: 350px; background: #000; border: 2px solid #333; padding: 15px; color: white; font-family: 'Montserrat'; font-size: 0.85rem; transition: 0.3s;">
-                    <button id="news-newsletter-btn" class="opt-node" style="min-width: 120px; padding: 15px; border-color: #666; background: rgba(197, 160, 89, 0.05); color: #666; cursor: not-allowed; transition: 0.3s;" disabled onclick="subscribeToNewsletter('news')">SUBSCRIBE</button>
-                </div>
-                <p id="news-newsletter-msg" style="font-size: 0.6rem; margin-top: 15px; font-weight: 800; color: var(--gold); display:none;"></p>
-            </div>
         </section>
 
         <!-- ===== CONTACT PAGE ===== -->
@@ -3426,32 +3989,149 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="contact-form">
-                    <h3>NACHRICHT SENDEN</h3>
-                    <div class="form-group">
-                        <label>NAME</label>
-                        <input type="text" id="contact-name" placeholder="Ihr Name">
-                    </div>
-                    <div class="form-group">
-                        <label>EMAIL</label>
-                        <input type="email" id="contact-email" placeholder="Ihre Email">
-                    </div>
-                    <div class="form-group">
-                        <label>BETREFF</label>
-                        <input type="text" id="contact-subject" placeholder="Betreff">
-                    </div>
-                    <div class="form-group">
-                        <label>NACHRICHT</label>
-                        <textarea id="contact-message" placeholder="Schreiben Sie Ihre Nachricht..."></textarea>
-                    </div>
-                    <button class="btn-checkout" style="width: 100%;" onclick="sendContact()">NACHRICHT SENDEN</button>
-                    <p id="contact-msg" style="font-size: 0.7rem; margin-top: 15px; font-weight: 800; display:none;"></p>
-                </div>
             </div>
 
             <div class="legal-notice" style="margin-top: 80px;">
                 <strong>♿ BARRIEREFREIHEIT:</strong> Diese Website ist nach WCAG 2.1 AA Richtlinien gestaltet. Wenn Sie Zugriffsprobleme haben, kontaktieren Sie uns direkt. Wir setzen auf Inklusion bei jedem Schritt.
+            </div>
+        </section>
+
+        <!-- ===== NACHHALTIGKEIT / SUSTAINABILITY PAGE ===== -->
+        <section id="nachhaltigkeit" class="page">
+            <span class="section-tag">VERANTWORTUNG</span>
+            <h2 class="section-title" style="text-align:center; margin-bottom: 60px;">NACHHALTIGKEIT & UMWELT</h2>
+            
+            <div style="max-width: 1000px; margin: 0 auto; padding: 0 60px;">
+                <div style="background: rgba(197, 160, 89, 0.05); border: 1px solid rgba(197, 160, 89, 0.15); padding: 40px; border-radius: 8px; margin-bottom: 60px;">
+                    <h3 style="color: var(--gold); font-size: 1.3rem; margin-bottom: 20px; letter-spacing: 1px;">Unser Nachhaltigkeitskomitment</h3>
+                    <p style="color: var(--gray); font-size: 0.95rem; line-height: 1.8; margin-bottom: 15px;">
+                        Bei Pulsario verstehen wir, dass Technologie Verantwortung trägt. Als österreichische Junior Company setzen wir auf Transparenz und Nachhaltigkeit – nicht nur beim Marketing, sondern bei jedem Schritt unserer Produktion.
+                    </p>
+                    <p style="color: var(--gold); font-weight: 700;">Wir definieren Qualität nicht nur durch Langlebigkeit, sondern auch durch Umweltbewusstsein.</p>
+                </div>
+
+                <h3 style="color: var(--gold); margin-top: 80px; margin-bottom: 40px; font-size: 1.2rem; letter-spacing: 1px;">MATERIALIEN – WOHER KOMMT ES?</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 60px;">
+                    <!-- PLA Cards -->
+                    <div style="background: var(--dark-card); border: 1px solid #111; padding: 30px; border-radius: 6px;">
+                        <h4 style="color: var(--gold); margin-bottom: 15px; font-size: 1.1rem;">PLA (Polylactic Acid)</h4>
+                        <p style="color: var(--gray); font-size: 0.9rem; line-height: 1.7; margin-bottom: 15px;">
+                            <strong>✓ Biobasiert:</strong> Aus erneuerbaren Rohstoffen (Maisstärke, Zuckerrohr)<br>
+                            <strong>✓ Kompostierbar:</strong> Vollständig biologisch abbaubar in industriellen Kompostanlagen<br>
+                            <strong>✓ CO₂-Fußabdruck:</strong> 30–50% niedriger als Kunststoff
+                        </p>
+                        <p style="color: var(--gold); font-size: 0.8rem; font-weight: 700;">PULSARIO STARTER & ADVANCED</p>
+                    </div>
+
+                    <!-- PETG Card -->
+                    <div style="background: var(--dark-card); border: 1px solid #111; padding: 30px; border-radius: 6px;">
+                        <h4 style="color: var(--gold); margin-bottom: 15px; font-size: 1.1rem;">PETG (polyethylene terephthalate glycol)</h4>
+                        <p style="color: var(--gray); font-size: 0.9rem; line-height: 1.7; margin-bottom: 15px;">
+                            <strong>✓ Recycelbar:</strong> Zu 100% recycelbar (mit lokalem Recycling-System)<br>
+                            <strong>✓ Langlebig:</strong> Höhere Wärmebeständigkeit für Premium-Performance<br>
+                            <strong>✓ Lokal verarbeitet:</strong> Mit österreichischen Partnern produziert
+                        </p>
+                        <p style="color: var(--gold); font-size: 0.8rem; font-weight: 700;">PULSARIO LUXURY & CARDHOLDER</p>
+                    </div>
+                </div>
+
+                <h3 style="color: var(--gold); margin-top: 80px; margin-bottom: 40px; font-size: 1.2rem; letter-spacing: 1px;">PRODUKTION – WIE MACHEN WIR ES?</h3>
+                <div style="background: rgba(197, 160, 89, 0.05); border: 1px solid rgba(197, 160, 89, 0.15); padding: 40px; border-radius: 6px; margin-bottom: 60px;">
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px;">
+                        <div>
+                            <p style="color: var(--gold); font-weight: 900; margin-bottom: 10px;">🌱 3D-DRUCK TECHNOLOGIE</p>
+                            <p style="color: var(--gray); font-size: 0.9rem; line-height: 1.7;">
+                                Wir nutzen Bambulab P1S 3D-Drucker – eine der effizientesten Produktionsmethoden. Sie ermöglicht:
+                            </p>
+                            <ul style="color: var(--gray); font-size: 0.9rem; line-height: 1.8; margin-left: 20px; margin-top: 10px;">
+                                <li>✓ Null-Verschwendung-Produktion (Keine Überproduktion)</li>
+                                <li>✓ Lokale Fertigung in Österreich</li>
+                                <li>✓ Energieeffizient (niedrigere Kosten = bessere Preise)</li>
+                                <li>✓ On-Demand-Personalisierung</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p style="color: var(--gold); font-weight: 900; margin-bottom: 10px;">⚡ ENERGIEBILANZ</p>
+                            <p style="color: var(--gray); font-size: 0.9rem; line-height: 1.7;">
+                                Unsere Produktionsstätte nutzt:
+                            </p>
+                            <ul style="color: var(--gray); font-size: 0.9rem; line-height: 1.8; margin-left: 20px; margin-top: 10px;">
+                                <li>✓ 60% Grünstrom (HTL Jenbach)</li>
+                                <li>✓ LED-Beleuchtung mit Bewegungsmelder</li>
+                                <li>✓ Kurze Transportwege (Made in Austria)</li>
+                                <li>✓ Recycling von Druckabfällen lokal</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="color: var(--gold); margin-top: 80px; margin-bottom: 40px; font-size: 1.2rem; letter-spacing: 1px;">VERSAND & VERPACKUNG</h3>
+                <div style="background: var(--dark-card); border: 1px solid #111; padding: 30px; border-radius: 6px; margin-bottom: 60px;">
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+                        <div>
+                            <p style="color: var(--gold); font-weight: 900; margin-bottom: 10px;">📦 VERPACKUNG</p>
+                            <p style="color: var(--gray); font-size: 0.85rem; line-height: 1.7;">
+                                100% recyceltes Papier mit Sojatinte-Druck. Verzicht auf Plastik-Verpackungen & Füllmaterial.
+                            </p>
+                        </div>
+                        <div>
+                            <p style="color: var(--gold); font-weight: 900; margin-bottom: 10px;">🚚 VERSANDPARTNER</p>
+                            <p style="color: var(--gray); font-size: 0.85rem; line-height: 1.7;">
+                                DHL Green & Österreichische Post mit Kompensationsprogrammen für CO₂-Emissionen.
+                            </p>
+                        </div>
+                        <div>
+                            <p style="color: var(--gold); font-weight: 900; margin-bottom: 10px;">♻️ RÜCKGABEPROGRAMM</p>
+                            <p style="color: var(--gray); font-size: 0.85rem; line-height: 1.7;">
+                                Kostenlose Rücknahme alter Uhren für Recycling. Wir zahlen sogar einen kleinen Gutschein.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="color: var(--gold); margin-top: 80px; margin-bottom: 40px; font-size: 1.2rem; letter-spacing: 1px;">LIFETIME & LÄNGLEBIGKEIT</h3>
+                <div style="background: rgba(197, 160, 89, 0.05); border-left: 4px solid var(--gold); padding: 30px; margin-bottom: 60px;">
+                    <p style="color: var(--gray); font-size: 0.95rem; line-height: 1.8; margin-bottom: 15px;">
+                        <strong>Die beste Nachhaltigkeit ist eine lange Lebensdauer.</strong>
+                    </p>
+                    <ul style="color: var(--gray); font-size: 0.9rem; line-height: 1.8; margin-left: 20px;">
+                        <li>✓ <strong>Mindestens 10 Jahre garantierte Nutzbarkeit</strong> durch austauschbare Batterien</li>
+                        <li>✓ <strong>Kostenlose Software-Updates</strong> für erweiterte Funktionalität</li>
+                        <li>✓ <strong>Austauschbare Teile:</strong> Armband, Display-Modul, Gehäuse können einzeln ersetzt werden</li>
+                        <li>✓ <strong>Repair-Service:</strong> Günstige Reparaturen statt Neuanschaffung</li>
+                        <li>✓ <strong>Community-Upcycling:</strong> Alte Uhren können an junge Generationen weitergegeben werden</li>
+                    </ul>
+                </div>
+
+                <h3 style="color: var(--gold); margin-top: 80px; margin-bottom: 40px; font-size: 1.2rem; letter-spacing: 1px;">ZERTIFIZIERUNGEN & ZIELE</h3>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin-bottom: 60px;">
+                    <div style="background: var(--dark-card); border: 1px solid #111; padding: 30px; border-radius: 6px;">
+                        <p style="color: var(--gold); font-weight: 900; margin-bottom: 15px;">🏅 HEUTE</p>
+                        <ul style="color: var(--gray); font-size: 0.9rem; line-height: 1.8; margin-left: 20px;">
+                            <li>✓ ISO 9001 (Qualitätsmanagement)</li>
+                            <li>✓ RoHS-2 Konform (Schadstoffarm)</li>
+                            <li>✓ WEEE-Registrierung (Elektroschrott)</li>
+                            <li>✓ Carbon-Neutral Versand</li>
+                        </ul>
+                    </div>
+                    <div style="background: var(--dark-card); border: 1px solid #111; padding: 30px; border-radius: 6px;">
+                        <p style="color: var(--gold); font-weight: 900; margin-bottom: 15px;">🎯 2026 ZIELE</p>
+                        <ul style="color: var(--gray); font-size: 0.9rem; line-height: 1.8; margin-left: 20px;">
+                            <li>✓ EU Ecolabel Zertifizierung</li>
+                            <li>✓ 100% Grünstrom für Produktion</li>
+                            <li>✓ Plastik-freie Lieferkette</li>
+                            <li>✓ B-Corp Certification</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="background: rgba(197, 160, 89, 0.1); border: 2px solid var(--gold); padding: 40px; border-radius: 6px; text-align: center; margin-top: 80px;">
+                    <p style="color: var(--gold); font-size: 1rem; font-weight: 900; letter-spacing: 1px; margin-bottom: 15px;">💚 WERDE TEIL DER VERÄNDERUNG</p>
+                    <p style="color: var(--gray); font-size: 0.95rem; line-height: 1.8;">
+                        Jeder Kauf von Pulsario ist eine Abstimmung für nachhaltige Technologie. Mit jeder Uhr unterstützen Sie ein österreichisches, umweltbewusstes Unternehmen.
+                    </p>
+                    <p style="color: var(--gold); font-weight: 700; font-size: 0.85rem; margin-top: 20px;">Made with ❤️ in Austria – For the Future</p>
+                </div>
             </div>
         </section>
 
@@ -3604,11 +4284,6 @@
                     <li>Rechnungsadresse</li>
                     <li>Zahlungsinformationen (über externe Zahlungsdienstleister)</li>
                 </ul>
-                <h4>2.2 Bei Newsletter-Anmeldung</h4>
-                <ul>
-                    <li>E-Mail-Adresse</li>
-                    <li>Opt-in Datum</li>
-                </ul>
                 <h4>2.3 Technische Daten</h4>
                 <ul>
                     <li>IP-Adresse</li>
@@ -3631,8 +4306,6 @@
                 <h3>4. SPEICHERDAUER</h3>
                 <h4>4.1 Bestelldaten</h4>
                 <p>Werden 7 Jahre lang gemäß österreichischen Steuervorgaben gespeichert.</p>
-                <h4>4.2 Newsletter-Daten</h4>
-                <p>Solange Sie angemeldet bleiben. Sie können sich jederzeit abmelden.</p>
 
                 <h3>5. COOKIES</h3>
                 <p>Siehe separate Cookie-Richtlinie.</p>
@@ -4468,6 +5141,50 @@ Kunststoffgehäuse bieten lediglich einen grundlegenden Schutz vor Spritzwasser 
                             Eleganz kennt keine Grenzen.
                         </p>
                     </div>
+
+                    <!-- FAQ Item 10 - CARDHOLDER -->
+                    <div style="background: #0a0a0a; padding: 25px; border-left: 3px solid var(--gold); border-radius: 4px;">
+                        <h4 style="color: var(--gold); margin-bottom: 12px; cursor: pointer; user-select: none;" onclick="this.parentElement.classList.toggle('expanded');">
+                            + Ist der PULSARIO Cardholder kompatibel mit meiner Uhr?
+                        </h4>
+                        <p style="color: var(--gray); font-size: 0.9rem; line-height: 1.7; max-height: 0; overflow: hidden; transition: max-height 0.3s;">
+                            Der PULSARIO Cardholder ist universell kompatibel mit allen PULSARIO Uhren-Modellen. Sie können ihn zusammen mit Ihrer Uhr tragen oder separat verwenden. 
+                            Der ergonomische Tragekomfort bleibt garantiert, egal welches Gehäuse Sie gewählt haben.
+                        </p>
+                    </div>
+
+                    <!-- FAQ Item 11 - CARDHOLDER -->
+                    <div style="background: #0a0a0a; padding: 25px; border-left: 3px solid var(--gold); border-radius: 4px;">
+                        <h4 style="color: var(--gold); margin-bottom: 12px; cursor: pointer; user-select: none;" onclick="this.parentElement.classList.toggle('expanded');">
+                            + Wie viele Karten passen in den Cardholder?
+                        </h4>
+                        <p style="color: var(--gray); font-size: 0.9rem; line-height: 1.7; max-height: 0; overflow: hidden; transition: max-height 0.3s;">
+                            Der PULSARIO Cardholder bietet Platz für bis zu 1-14 Karten (Kredit-, Debit- oder Ausweiskarten). Das kompakte Design hält die Karten sicher, 
+                            ohne das Volumen unnötig zu vergrößern. Perfekt für minimalistisches Reisegepäck.
+                        </p>
+                    </div>
+
+                    <!-- FAQ Item 12 - CARDHOLDER -->
+                    <div style="background: #0a0a0a; padding: 25px; border-left: 3px solid var(--gold); border-radius: 4px;">
+                        <h4 style="color: var(--gold); margin-bottom: 12px; cursor: pointer; user-select: none;" onclick="this.parentElement.classList.toggle('expanded');">
+                            + Bietet der Cardholder RFID-Schutz?
+                        </h4>
+                        <p style="color: var(--gray); font-size: 0.9rem; line-height: 1.7; max-height: 0; overflow: hidden; transition: max-height 0.3s;">
+                            Ja! Der PULSARIO Cardholder verfügt über integrierte RFID-Blockierungstechnologie, die Ihre kontaktlosen Zahlungskarten vor unbefugten Lesevorgängen schützt. 
+                            
+                        </p>
+                    </div>
+
+                    <!-- FAQ Item 13 - CARDHOLDER -->
+                    <div style="background: #0a0a0a; padding: 25px; border-left: 3px solid var(--gold); border-radius: 4px;">
+                        <h4 style="color: var(--gold); margin-bottom: 12px; cursor: pointer; user-select: none;" onclick="this.parentElement.classList.toggle('expanded');">
+                            + Kann ich den Cardholder personalisieren?
+                        </h4>
+                        <p style="color: var(--gray); font-size: 0.9rem; line-height: 1.7; max-height: 0; overflow: hidden; transition: max-height 0.3s;">
+                            Absolut! Wie die PULSARIO Uhr selbst, können Sie den Cardholder mit einer persönlichen Gravur, verschiedenen Materialien und Farben anpassen. 
+                            Dies macht den Cardholder zum perfekten Geschenk oder persönlichen Accessoire. Konfigurieren Sie ihn jetzt.
+                        </p>
+                    </div>
                 </div>
 
                 <div style="background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%); padding: 30px; border-radius: 4px; margin-top: 50px;">
@@ -4492,22 +5209,23 @@ Kunststoffgehäuse bieten lediglich einen grundlegenden Schutz vor Spritzwasser 
             <!-- Partner Logos Section -->
             <div style="margin-bottom: 120px;">
                 <h3 style="color: var(--gold); font-size: 1.2rem; margin-bottom: 60px; letter-spacing: 2px; text-align: center;">UNSERE HAUPTPARTNER</h3>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; max-width: 1000px; margin: 0 auto; align-items: center;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; max-width: 1200px; margin: 0 auto; align-items: center;">
+                    <!-- JA Austria Partner Card -->
+                    <div style="background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%); padding: 40px; border-radius: 8px; border: 1px solid #333; text-align: center; transition: all 0.5s;">
+                        <img src="images/ja-austria-logo.jpg.opdownload" style="width: 120px; height: auto; margin: 0 auto 25px; opacity: 0.95;">
+                        <h4 style="color: var(--gold); font-size: 1.2rem; margin-bottom: 15px; letter-spacing: 2px;">JA AUSTRIA</h4>
+                        <p style="color: var(--gray); font-size: 0.95rem; line-height: 1.9; margin-bottom: 20px;">
+                            Netzwerk für Junior Companies und Unternehmergeist. Plattform für Innovatoren und Start-ups
+                        </p>
+                        <p style="color: #888; font-size: 0.85rem; font-style: italic;">
+                            „Entrepreneurship für die Zukunft"
+                        </p>
+                    </div>
+
                     <!-- HTL Jenbach Partner Card -->
-                    <div style="background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%); padding: 50px; border-radius: 8px; border: 1px solid #333; text-align: center; transition: all 0.5s;">
-                        <svg width="120" height="120" viewBox="0 0 100 100" style="margin: 0 auto 25px; opacity: 0.9;">
-                            <defs>
-                                <linearGradient id="htlGold" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#d4af37;stop-opacity:1" />
-                                    <stop offset="100%" style="stop-color:#c5a059;stop-opacity:1" />
-                                </linearGradient>
-                            </defs>
-                            <!-- HTL Jenbach Stilisiertes Logo -->
-                            <rect x="15" y="15" width="70" height="70" fill="none" stroke="url(#htlGold)" stroke-width="2" rx="4"/>
-                            <text x="50" y="40" font-family="Cinzel, serif" font-size="20" font-weight="900" fill="url(#htlGold)" text-anchor="middle" letter-spacing="1">HTL</text>
-                            <text x="50" y="65" font-family="Montserrat, sans-serif" font-size="10" fill="url(#htlGold)" text-anchor="middle" letter-spacing="0.5">JENBACH</text>
-                        </svg>
-                        <h4 style="color: var(--gold); font-size: 1.3rem; margin-bottom: 15px; letter-spacing: 2px;">HTL JENBACH</h4>
+                    <div style="background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%); padding: 40px; border-radius: 8px; border: 1px solid #333; text-align: center; transition: all 0.5s;">
+                        <img src="images/htl jenbach logo.png" style="width: 120px; height: auto; margin: 0 auto 25px; opacity: 0.95;">
+                        <h4 style="color: var(--gold); font-size: 1.2rem; margin-bottom: 15px; letter-spacing: 2px;">HTL JENBACH</h4>
                         <p style="color: var(--gray); font-size: 0.95rem; line-height: 1.9; margin-bottom: 20px;">
                             Technisches Know-how, fachliche Unterstützung und die Basis für ein innovatives Schulprojekt
                         </p>
@@ -4517,7 +5235,7 @@ Kunststoffgehäuse bieten lediglich einen grundlegenden Schutz vor Spritzwasser 
                     </div>
 
                     <!-- Raiffeisenbank Partner Card -->
-                    <div style="background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%); padding: 50px; border-radius: 8px; border: 1px solid #333; text-align: center;">
+                    <div style="background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%); padding: 40px; border-radius: 8px; border: 1px solid #333; text-align: center;">
                         <svg width="120" height="120" viewBox="0 0 100 100" style="margin: 0 auto 25px; opacity: 0.9;">
                             <defs>
                                 <linearGradient id="raiffeisenGold" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -4530,7 +5248,7 @@ Kunststoffgehäuse bieten lediglich einen grundlegenden Schutz vor Spritzwasser 
                             <circle cx="50" cy="50" r="32" fill="none" stroke="url(#raiffeisenGold)" stroke-width="1" opacity="0.6"/>
                             <text x="50" y="58" font-family="Cinzel, serif" font-size="26" font-weight="900" fill="url(#raiffeisenGold)" text-anchor="middle">R</text>
                         </svg>
-                        <h4 style="color: var(--gold); font-size: 1.3rem; margin-bottom: 15px; letter-spacing: 2px;">RAIFFEISENBANK</h4>
+                        <h4 style="color: var(--gold); font-size: 1.2rem; margin-bottom: 15px; letter-spacing: 2px;">RAIFFEISENBANK</h4>
                         <p style="color: var(--gray); font-size: 0.95rem; line-height: 1.9; margin-bottom: 20px;">
                             Finanzielle Unterstützung und Startkapital für die Realisierung unseres Traums
                         </p>
@@ -5905,83 +6623,8 @@ Kundenemail: ${email}
             setInterval(updateCountdown, 1000);
         }
 
-        // ===== NEWSLETTER & FORMS =====
-        function subscribeToNewsletter(source) {
-            const emailId = source === 'news' ? 'news-newsletter-email' : 'home-newsletter-email';
-            const msgId = source === 'news' ? 'news-newsletter-msg' : 'home-newsletter-msg';
-            
-            const email = document.getElementById(emailId).value.trim().toLowerCase();
-            const msg = document.getElementById(msgId);
-            
-            // Email validation regex
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            
-            if (email && emailRegex.test(email)) {
-                // Generate a unique 5% discount code
-                const discountCode = 'ELITE' + Math.random().toString(36).substr(2, 6).toUpperCase();
-                
-                msg.innerHTML = `✓ Willkommen! Sie sind jetzt ein PULSARIO Elite Member!<br><span style="font-size: 0.7rem; color: #999;">Code wird per E-Mail zugesendet.</span>`;
-                msg.style.display = 'block';
-                msg.style.color = 'var(--gold)';
-                
-                // Store the discount code (would be emailed in production)
-                console.log(`Discount Code for ${email}: ${discountCode} - würde per E-Mail versendet`);
-                
-                document.getElementById(emailId).value = '';
-                setTimeout(() => { msg.style.display = 'none'; }, 8000);
-                
-                // Re-disable button
-                document.getElementById(source === 'news' ? 'news-newsletter-btn' : 'home-newsletter-btn').disabled = true;
-                document.getElementById(source === 'news' ? 'news-newsletter-btn' : 'home-newsletter-btn').style.opacity = '0.5';
-                document.getElementById(source === 'news' ? 'news-newsletter-btn' : 'home-newsletter-btn').style.borderColor = '#666';
-            } else {
-                msg.innerText = email === '' ? "Bitte E-Mail eingeben." : "Bitte gültige E-Mail eingeben.";
-                msg.style.display = 'block';
-                msg.style.color = '#ff6b6b';
-            }
-        }
-
-        // Newsletter email live validation
+        // ===== CHECKOUT VALIDATION & LIVE LOGIC =====
         document.addEventListener('DOMContentLoaded', function() {
-            const setupEmailValidation = (emailId, btnId) => {
-                const emailInput = document.getElementById(emailId);
-                const btn = document.getElementById(btnId);
-                if (!emailInput || !btn) return;
-
-                emailInput.addEventListener('input', function() {
-                    const email = this.value.trim();
-                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    const isValid = email.length > 0 && emailRegex.test(email);
-
-                    if (isValid) {
-                        btn.disabled = false;
-                        btn.style.opacity = '1';
-                        btn.style.cursor = 'pointer';
-                        btn.style.borderColor = 'var(--gold)';
-                        btn.style.background = 'rgba(197, 160, 89, 0.1)';
-                        btn.style.color = 'var(--gold)';
-                    } else {
-                        btn.disabled = true;
-                        btn.style.opacity = '0.5';
-                        btn.style.cursor = 'not-allowed';
-                        btn.style.borderColor = '#666';
-                        btn.style.background = 'rgba(197, 160, 89, 0.05)';
-                        btn.style.color = '#666';
-                    }
-                });
-
-                emailInput.addEventListener('blur', function() {
-                    if (this.value.trim() === '') {
-                        btn.disabled = true;
-                        btn.style.opacity = '0.5';
-                    }
-                });
-            };
-
-            setupEmailValidation('home-newsletter-email', 'home-newsletter-btn');
-            setupEmailValidation('news-newsletter-email', 'news-newsletter-btn');
-
-            // Live validation for checkout fields
             const checkoutFields = [
                 'checkout-email',
                 'checkout-firstname',
@@ -6036,7 +6679,404 @@ Kundenemail: ${email}
                     this.style.color = 'var(--gold)';
                 });
             });
+
+            // Initialize watch and cardholder price display
+            if (typeof watchUpdatePrice === 'function') {
+                watchUpdatePrice();
+            }
+            if (typeof chUpdatePrice === 'function') {
+                chUpdatePrice();
+            }
         });
+
+        // ===== WATCH CONFIGURATOR STATE & FUNCTIONS =====
+        window.watchConfiguratorState = {
+            display: '1.46 Zoll',
+            displayPrice: 45,
+            case: 'PLA',
+            casePrice: 10,
+            bands: ['Leder'],
+            bandPrices: { 'Leder': 10, 'Edelstahl': 15 },
+            totalPrice: 65,
+            currentStep: 1
+        };
+
+        function watchSelectOption(category, value, element) {
+            // Update state for Single-Select (display, case)
+            if (category === 'display') {
+                window.watchConfiguratorState.display = value;
+                window.watchConfiguratorState.displayPrice = 45;
+            } else if (category === 'case') {
+                window.watchConfiguratorState.case = value;
+                window.watchConfiguratorState.casePrice = value === 'PLA' ? 10 : 12;
+            }
+
+            // Update UI
+            document.querySelectorAll('[data-category="watch-' + category + '"]').forEach(btn => {
+                btn.parentElement.style.borderColor = 'transparent';
+                btn.classList.remove('active');
+                btn.style.backgroundColor = 'transparent';
+            });
+            element.classList.add('active');
+            element.parentElement.style.borderColor = 'var(--gold)';
+            element.style.backgroundColor = 'rgba(197, 160, 89, 0.1)';
+
+            watchUpdatePrice();
+        }
+
+        function watchToggleBand(band, element) {
+            // Toggle band in array
+            const idx = window.watchConfiguratorState.bands.indexOf(band);
+            if (idx > -1) {
+                window.watchConfiguratorState.bands.splice(idx, 1);
+            } else {
+                window.watchConfiguratorState.bands.push(band);
+            }
+
+            // Update UI - toggle active state
+            if (element.classList.contains('active')) {
+                element.classList.remove('active');
+                element.parentElement.style.borderColor = 'transparent';
+                element.style.backgroundColor = 'transparent';
+            } else {
+                element.classList.add('active');
+                element.parentElement.style.borderColor = 'var(--gold)';
+                element.style.backgroundColor = 'rgba(197, 160, 89, 0.1)';
+            }
+
+            // Update selected bands list
+            const bandsList = document.getElementById('selected-watch-bands-list');
+            bandsList.innerHTML = window.watchConfiguratorState.bands.map(b => 
+                `<span style="color: var(--gold); font-weight: 900; font-size: 0.85rem;">${b}</span>`
+            ).join('');
+
+            watchUpdatePrice();
+        }
+
+        function watchUpdatePrice() {
+            // Calculate band prices
+            let bandPriceTotal = 0;
+            window.watchConfiguratorState.bands.forEach(band => {
+                bandPriceTotal += window.watchConfiguratorState.bandPrices[band] || 0;
+            });
+
+            const total = window.watchConfiguratorState.displayPrice + 
+                         window.watchConfiguratorState.casePrice + 
+                         bandPriceTotal;
+            window.watchConfiguratorState.totalPrice = total;
+
+            // Update summary display
+            document.getElementById('watch-summary-display').textContent = window.watchConfiguratorState.display;
+            document.getElementById('watch-summary-case').textContent = window.watchConfiguratorState.case;
+            document.getElementById('watch-summary-band').textContent = window.watchConfiguratorState.bands.join(', ');
+            document.getElementById('watch-summary-price').textContent = '€' + total;
+
+            // Update payment amount in step 3
+            const paymentAmount = document.getElementById('watch-payment-amount');
+            if (paymentAmount) paymentAmount.textContent = '€' + total;
+
+            // Update sticky bar if visible
+            const stickyPrice = document.getElementById('watch-sticky-price');
+            if (stickyPrice) stickyPrice.textContent = total;
+        }
+
+        function watchSwitchStep(step) {
+            if (step < 1 || step > 4) return;
+
+            // Hide all steps
+            for (let i = 1; i <= 4; i++) {
+                document.getElementById(`watch-step-${i}`).classList.remove('active');
+            }
+
+            // Show selected step
+            document.getElementById(`watch-step-${step}`).classList.add('active');
+
+            // Update stepper nav
+            document.querySelectorAll('#configurator .stepper-item').forEach((item, idx) => {
+                if (idx + 1 === step) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+
+            window.watchConfiguratorState.currentStep = step;
+
+            // Show/hide sticky bar
+            const stickyBar = document.getElementById('watch-config-sticky-bar');
+            if (step < 4 && window.innerWidth < 1024) {
+                stickyBar.style.display = 'flex';
+                document.body.style.paddingBottom = '80px';
+            } else {
+                stickyBar.style.display = 'none';
+                document.body.style.paddingBottom = '0';
+            }
+
+            // Update sticky next button text
+            const stickyBtn = document.getElementById('watch-sticky-next-btn');
+            if (stickyBtn) {
+                stickyBtn.textContent = step === 3 ? '→ SUMMARY' : 'WEITER →';
+            }
+
+            // Scroll to top
+            document.getElementById('configurator').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function watchGoToNextStep() {
+            const nextStep = window.watchConfiguratorState.currentStep + 1;
+            if (nextStep <= 4) {
+                watchSwitchStep(nextStep);
+            }
+        }
+
+        function takeWatchConfiguratorScreenshot() {
+            const config = window.watchConfiguratorState;
+            
+            // Calculate band info for screenshot
+            let armband_details = '';
+            let armband_price_total = 0;
+            config.bands.forEach(band => {
+                armband_details += `${band} (€${config.bandPrices[band]}), `;
+                armband_price_total += config.bandPrices[band];
+            });
+            armband_details = armband_details.slice(0, -2); // Remove last comma and space
+            
+            const screenshot = `
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+              PULSARIO SMARTWATCH - KONFIGURATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+DISPLAY:       ${config.display} (€${config.displayPrice})
+GEHÄUSE:       ${config.case} (€${config.casePrice})
+ARMBÄNDER:     ${armband_details}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+GESAMTPREIS:   €${config.totalPrice}
+LIEFERZEIT:    5–14 Werktage
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 ZAHLUNGSANWEISUNG:
+
+Senden Sie diesen Screenshot (Zahlungsbestätigung + Bestellzusammenfassung) an: pulsario.official@gmail.com
+
+Überweisen Sie €${config.totalPrice} auf folgende IBAN:
+
+   IBAN: AT93 1200 0100 4745 4342
+   Inhaber: PULSARIO
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Konfiguriert am: ${new Date().toLocaleDateString('de-DE', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})}
+Uhrzeit: ${new Date().toLocaleTimeString('de-DE')}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+            `;
+
+            // Create a temporary textarea to copy to clipboard
+            const ta = document.createElement('textarea');
+            ta.value = screenshot;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+
+            alert('✓ Screenshot in die Zwischenablage kopiert!\n\nSchicken Sie diesen Screenshot (enthält Zahlungsbestätigung + Bestellzusammenfassung) mit dem Betreff "Smartwatch Konfiguration" an: pulsario.official@gmail.com');
+        }
+
+        // ===== CARDHOLDER CONFIGURATOR STATE & FUNCTIONS =====
+        window.chConfiguratorState = {
+            material: 'PLA',
+            materialPrice: 10,
+            color: 'Weiß',
+            colorPrice: 0,
+            screws: 'Mit Schrauben',
+            screwsPrice: 2,
+            totalPrice: 12,
+            currentStep: 1
+        };
+
+        function chSelectMaterial(material, element) {
+            // Update state
+            window.chConfiguratorState.material = material;
+            window.chConfiguratorState.materialPrice = material === 'PLA' ? 10 : 12;
+
+            // Update UI
+            document.querySelectorAll('[data-category="ch-material"]').forEach(btn => {
+                btn.parentElement.style.borderColor = 'transparent';
+                btn.classList.remove('active');
+                btn.style.backgroundColor = 'transparent';
+            });
+            element.classList.add('active');
+            element.parentElement.style.borderColor = 'var(--gold)';
+            element.style.backgroundColor = 'rgba(197, 160, 89, 0.1)';
+
+            chUpdatePrice();
+        }
+
+        function chSelectColor(color, element) {
+            // Update state
+            window.chConfiguratorState.color = color;
+            window.chConfiguratorState.colorPrice = 0; // All colors are free
+
+            // Update UI
+            document.querySelectorAll('[data-category="ch-color"]').forEach(btn => {
+                btn.parentElement.style.borderColor = 'transparent';
+                btn.classList.remove('active');
+                btn.style.backgroundColor = 'transparent';
+            });
+            element.classList.add('active');
+            element.parentElement.style.borderColor = 'var(--gold)';
+            element.style.backgroundColor = 'rgba(197, 160, 89, 0.1)';
+
+            chUpdatePrice();
+        }
+
+        function chSelectScrews(screws, element) {
+            // Update state
+            window.chConfiguratorState.screws = screws;
+            window.chConfiguratorState.screwsPrice = parseInt(element.getAttribute('data-price')) || 0;
+
+            // Update UI
+            document.querySelectorAll('[data-category="ch-screws"]').forEach(btn => {
+                btn.parentElement.style.borderColor = 'transparent';
+                btn.classList.remove('active');
+                btn.style.backgroundColor = 'transparent';
+            });
+            element.classList.add('active');
+            element.parentElement.style.borderColor = 'var(--gold)';
+            element.style.backgroundColor = 'rgba(197, 160, 89, 0.1)';
+
+            chUpdatePrice();
+        }
+
+        function chUpdatePrice() {
+            const total = window.chConfiguratorState.materialPrice + 
+                         window.chConfiguratorState.colorPrice + 
+                         window.chConfiguratorState.screwsPrice;
+            window.chConfiguratorState.totalPrice = total;
+
+            // Update summary display
+            document.getElementById('ch-summary-material').textContent = window.chConfiguratorState.material;
+            document.getElementById('ch-summary-color').textContent = window.chConfiguratorState.color;
+            document.getElementById('ch-summary-screws').textContent = window.chConfiguratorState.screws;
+            document.getElementById('ch-summary-price').textContent = '€' + total;
+
+            // Update payment amount in step 3
+            const paymentAmount = document.getElementById('ch-payment-amount');
+            if (paymentAmount) paymentAmount.textContent = '€' + total;
+
+            // Update sticky bar if visible
+            const stickyPrice = document.getElementById('ch-sticky-price');
+            if (stickyPrice) stickyPrice.textContent = total;
+        }
+
+        function chSwitchStep(step) {
+            if (step < 1 || step > 4) return;
+
+            // Hide all steps
+            for (let i = 1; i <= 4; i++) {
+                document.getElementById(`ch-step-${i}`).classList.remove('active');
+            }
+
+            // Show selected step
+            document.getElementById(`ch-step-${step}`).classList.add('active');
+
+            // Update stepper nav
+            document.querySelectorAll('#cardholder-configurator .stepper-item').forEach((item, idx) => {
+                if (idx + 1 === step) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+
+            window.chConfiguratorState.currentStep = step;
+
+            // Show/hide sticky bar
+            const stickyBar = document.getElementById('ch-config-sticky-bar');
+            if (step < 4 && window.innerWidth < 1024) {
+                stickyBar.style.display = 'flex';
+                document.body.style.paddingBottom = '80px';
+            } else {
+                stickyBar.style.display = 'none';
+                document.body.style.paddingBottom = '0';
+            }
+
+            // Update sticky next button text
+            const stickyBtn = document.getElementById('ch-sticky-next-btn');
+            if (stickyBtn) {
+                stickyBtn.textContent = step === 3 ? '→ SUMMARY' : 'WEITER →';
+            }
+
+            // Scroll to top
+            document.getElementById('cardholder-configurator').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function chGoToNextStep() {
+            const nextStep = window.chConfiguratorState.currentStep + 1;
+            if (nextStep <= 4) {
+                chSwitchStep(nextStep);
+            }
+        }
+
+        function takeConfiguratorScreenshot() {
+            const config = window.chConfiguratorState;
+            const screenshot = `
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           PULSARIO CARDHOLDER - KONFIGURATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+MATERIAL:      ${config.material} (€${config.materialPrice})
+FARBE:         ${config.color} (€${config.colorPrice})
+SCHRAUBEN:     ${config.screws} (€${config.screwsPrice})
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+GESAMTPREIS:   €${config.totalPrice}
+LIEFERZEIT:    5–14 Werktage
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 ZAHLUNGSANWEISUNG:
+
+Senden Sie diesen Screenshot (Zahlungsbestätigung + Bestellzusammenfassung) an: pulsario.official@gmail.com
+
+Überweisen Sie €${config.totalPrice} auf folgende IBAN:
+
+   IBAN: AT93 1200 0100 4745 4342
+   Inhaber: PULSARIO
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Konfiguriert am: ${new Date().toLocaleDateString('de-DE', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})}
+Uhrzeit: ${new Date().toLocaleTimeString('de-DE')}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+            `;
+
+            // Create a temporary textarea to copy to clipboard
+            const ta = document.createElement('textarea');
+            ta.value = screenshot;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+
+            alert('✓ Screenshot in die Zwischenablage kopiert!\n\nSchicken Sie diesen Screenshot (enthält Zahlungsbestätigung + Bestellzusammenfassung) mit dem Betreff \"Cardholder Konfiguration\" an: pulsario.official@gmail.com');
+        }
+
+        function addCardholderToCartAndCheckout() {
+            const config = window.chConfiguratorState;
+            const item = {
+                id: 'cardholder-' + Date.now(),
+                type: 'cardholder',
+                title: `CARDHOLDER - ${config.material} ${config.color}`,
+                configuration: `Material: ${config.material}, Farbe: ${config.color}, Schrauben: ${config.screws}`,
+                price: config.totalPrice,
+                image: 'images/cardholder.png'
+            };
+
+            // Add to cart
+            if (!app.cart) app.cart = [];
+            app.cart.push(item);
+
+            // Go to checkout
+            nav('checkout');
+        }
 
         function sendContact() {
             const name = document.getElementById('contact-name').value;
@@ -6214,11 +7254,124 @@ Kundenemail: ${email}
             modal.style.display = 'none';
         }
 
+        function showCardholderInfo() {
+            const modal = document.getElementById('cardholder-info-modal');
+            modal.style.display = 'block';
+            cardholderSliderIndex = 0;
+            updateCardholderSlider();
+        }
+
+        function closeCardholderModal() {
+            const modal = document.getElementById('cardholder-info-modal');
+            modal.style.display = 'none';
+        }
+
+        // Cardholder Slider Functions
+        let cardholderSliderIndex = 0;
+
+        function cardholderSliderNext() {
+            cardholderSliderIndex = (cardholderSliderIndex + 1) % 5;
+            updateCardholderSlider();
+        }
+
+        function cardholderSliderPrev() {
+            cardholderSliderIndex = (cardholderSliderIndex - 1 + 5) % 5;
+            updateCardholderSlider();
+        }
+
+        function cardholderSliderGo(index) {
+            cardholderSliderIndex = index;
+            updateCardholderSlider();
+        }
+
+        function updateCardholderSlider() {
+            const slider = document.getElementById('cardholder-slider');
+            slider.style.transform = `translateX(-${cardholderSliderIndex * 100}%)`;
+            
+            const dots = document.querySelectorAll('.ch-dot');
+            dots.forEach((dot, index) => {
+                if (index === cardholderSliderIndex) {
+                    dot.style.background = 'var(--gold)';
+                } else {
+                    dot.style.background = '#555';
+                }
+            });
+        }
+
+        // Home Cardholder Showcase Slider Functions
+        let cardholderCurrentIndex = 0;
+        const totalCardholderImages = 5;
+
+        function cardholderSlide(direction) {
+            cardholderCurrentIndex += direction;
+            if (cardholderCurrentIndex >= totalCardholderImages) {
+                cardholderCurrentIndex = 0;
+            } else if (cardholderCurrentIndex < 0) {
+                cardholderCurrentIndex = totalCardholderImages - 1;
+            }
+            updateHomeCardholderSlider();
+        }
+
+        function cardholderGoTo(index) {
+            cardholderCurrentIndex = index;
+            updateHomeCardholderSlider();
+        }
+
+        function updateHomeCardholderSlider() {
+            const slider = document.getElementById('cardholder-slider-container');
+            if (slider) {
+                slider.style.transform = `translateX(-${cardholderCurrentIndex * 100}%)`;
+            }
+            // Update dots
+            for (let i = 0; i < totalCardholderImages; i++) {
+                const dot = document.getElementById(`dot-${i}`);
+                if (dot) {
+                    dot.style.background = i === cardholderCurrentIndex ? 'var(--gold)' : 'rgba(197, 160, 89, 0.4)';
+                }
+            }
+        }
+
+        // Shop Cardholder Slider Functions
+        let shopCardholderSliderIndex = 0;
+
+        function shopCardholderSliderNext() {
+            shopCardholderSliderIndex = (shopCardholderSliderIndex + 1) % 5;
+            updateShopCardholderSlider();
+        }
+
+        function shopCardholderSliderPrev() {
+            shopCardholderSliderIndex = (shopCardholderSliderIndex - 1 + 5) % 5;
+            updateShopCardholderSlider();
+        }
+
+        function shopCardholderSliderGo(index) {
+            shopCardholderSliderIndex = index;
+            updateShopCardholderSlider();
+        }
+
+        function updateShopCardholderSlider() {
+            const slider = document.getElementById('shop-cardholder-slider');
+            slider.style.transform = `translateX(-${shopCardholderSliderIndex * 100}%)`;
+            
+            const dots = document.querySelectorAll('.shop-ch-dot');
+            dots.forEach((dot, index) => {
+                if (index === shopCardholderSliderIndex) {
+                    dot.style.background = 'var(--gold)';
+                } else {
+                    dot.style.background = '#555';
+                }
+            });
+        }
+
         // Close modal when clicking outside
         window.addEventListener('click', function(event) {
-            const modal = document.getElementById('watch-info-modal');
-            if (event.target === modal) {
+            const watchModal = document.getElementById('watch-info-modal');
+            const cardholderModal = document.getElementById('cardholder-info-modal');
+            if (event.target === watchModal) {
                 closeWatchModal();
+            }
+            if (event.target === cardholderModal) {
+                closeCardholderModal();
             }
         });
 
@@ -6226,6 +7379,7 @@ Kundenemail: ${email}
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {
                 closeWatchModal();
+                closeCardholderModal();
             }
         });
 

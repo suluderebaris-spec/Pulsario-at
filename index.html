@@ -2600,11 +2600,11 @@
     </div>
 
     <header id="header">
-        <a href="#" class="logo" onclick="nav('home')">PULSARIO</a>
+        <a href="#" class="logo" onclick="return nav('home')">PULSARIO</a>
         <nav class="nav-center" id="nav-center">
-            <button class="nav-main-btn" onclick="nav('configurator')" id="lnk-configurator">KONFIGURIEREN</button>
-            <button class="nav-main-btn" onclick="nav('cardholder-configurator')" id="lnk-cardholder-configurator">CARDHOLDER</button>
-            <button class="nav-main-btn" onclick="nav('shop')" id="lnk-shop">SHOP</button>
+            <button class="nav-main-btn" onclick="return nav('configurator')" id="lnk-configurator">KONFIGURIEREN</button>
+            <button class="nav-main-btn" onclick="return nav('cardholder-configurator')" id="lnk-cardholder-configurator">CARDHOLDER</button>
+            <button class="nav-main-btn" onclick="return nav('shop')" id="lnk-shop">SHOP</button>
         </nav>
         <div class="nav-right">
             <div class="hamburger" id="hamburger">
@@ -2615,17 +2615,17 @@
         </div>
         <!-- Mobile Menu -->
         <nav class="mobile-menu" id="mobile-menu">
-            <a href="#" onclick="nav('home')" id="lnk-home" class="active">HOME</a>
-            <a href="#" onclick="nav('features')" id="lnk-features">FEATURES</a>
-            <a href="#" onclick="nav('about')" id="lnk-about">ABOUT US</a>
-            <a href="#" onclick="nav('news')" id="lnk-news">NEWS</a>
-            <a href="#" onclick="nav('zusammenarbeit')" id="lnk-zusammenarbeit">ZUSAMMENARBEIT</a>
-            <a href="#" onclick="nav('nachhaltigkeit')" id="lnk-nachhaltigkeit">NACHHALTIGKEIT</a>
-            <a href="#" onclick="nav('contact')" id="lnk-contact">KONTAKT</a>
+            <a href="#" onclick="return nav('home')" id="lnk-home" class="active">HOME</a>
+            <a href="#" onclick="return nav('features')" id="lnk-features">FEATURES</a>
+            <a href="#" onclick="return nav('about')" id="lnk-about">ABOUT US</a>
+            <a href="#" onclick="return nav('news')" id="lnk-news">NEWS</a>
+            <a href="#" onclick="return nav('zusammenarbeit')" id="lnk-zusammenarbeit">ZUSAMMENARBEIT</a>
+            <a href="#" onclick="return nav('nachhaltigkeit')" id="lnk-nachhaltigkeit">NACHHALTIGKEIT</a>
+            <a href="#" onclick="return nav('contact')" id="lnk-contact">KONTAKT</a>
             <hr style="border: none; border-top: 1px solid #333; margin: 20px 0;">
-            <a href="#" onclick="nav('agb')">AGB</a>
-            <a href="#" onclick="nav('datenschutz')">DATENSCHUTZ</a>
-            <a href="#" onclick="nav('impressum')">IMPRESSUM</a>
+            <a href="#" onclick="return nav('agb')">AGB</a>
+            <a href="#" onclick="return nav('datenschutz')">DATENSCHUTZ</a>
+            <a href="#" onclick="return nav('impressum')">IMPRESSUM</a>
         </nav>
     </header>
 
@@ -2640,7 +2640,7 @@
                 <span style="font-size: 0.8rem; color: var(--gray);">SUBTOTAL</span>
                 <span id="cart-subtotal" style="font-family: 'Cinzel'; font-weight: 700;">0.00€</span>
             </div>
-            <button class="btn-checkout" onclick="nav('checkout')">CHECKOUT</button>
+            <button class="btn-checkout" onclick="return nav('checkout')">CHECKOUT</button>
         </div>
     </div>
 
@@ -2659,8 +2659,8 @@
                     <h1 class="section-title" style="font-size: 6rem; letter-spacing: 15px; text-shadow: 0 4px 20px rgba(0,0,0,0.8); margin-bottom: 30px;">REVOLUTION DER ZEIT</h1>
                     <p style="color:var(--gray); font-size: 1.1rem; margin-bottom: 60px; text-shadow: 0 2px 10px rgba(0,0,0,0.8); max-width: 700px; margin-left: auto; margin-right: auto;">Erleben Sie die diskrete Revolution. Eine Uhr, die Sie durch haptische Impulse leitet, ohne die Welt um Sie herum zu stören.</p>
                     <div style="display:flex; justify-content:center; gap: 30px;">
-                        <button class="btn-checkout" style="width:auto; padding: 20px 60px;" onclick="nav('configurator')">KONFIGURIEREN</button>
-                        <button class="btn-checkout" style="width:auto; padding: 20px 60px; background: transparent; color: white; border: 1px solid #222;" onclick="nav('about')">UNSERE STORY</button>
+                        <button class="btn-checkout" style="width:auto; padding: 20px 60px;" onclick="return nav('configurator')">KONFIGURIEREN</button>
+                        <button class="btn-checkout" style="width:auto; padding: 20px 60px; background: transparent; color: white; border: 1px solid #222;" onclick="return nav('about')">UNSERE STORY</button>
                     </div>
                 </div>
             </div>
@@ -2887,7 +2887,7 @@
                 </div>
 
                 <div style="text-align: center;">
-                    <button class="btn-checkout" onclick="nav('shop')" style="max-width: 400px; margin: 0 auto; display: inline-block; width: 100%;">CARDHOLDER JETZT ENTDECKEN</button>
+                    <button class="btn-checkout" onclick="return nav('shop')" style="max-width: 400px; margin: 0 auto; display: inline-block; width: 100%;">CARDHOLDER JETZT ENTDECKEN</button>
                 </div>
             </div>
         </section>
@@ -2908,7 +2908,7 @@
                         <h4 style="font-family: 'Cinzel'; color: var(--gold); margin-bottom: 10px; letter-spacing: 2px;">PULSARIO STARTER</h4>
                         <p style="font-size: 0.7rem; color: var(--gray); margin-bottom: 30px;">Für Schüler & Einsteiger</p>
                         <button class="btn-checkout" onclick="showWatchInfo(1)" style="margin-bottom: 10px;">MEHR ERFAHREN</button>
-                        <button class="opt-node" style="width: 100%; padding: 15px; border-color: var(--gold); color: var(--gold);" onclick="nav('configurator')">KONFIGURIEREN</button>
+                        <button class="opt-node" style="width: 100%; padding: 15px; border-color: var(--gold); color: var(--gold);" onclick="return nav('configurator')">KONFIGURIEREN</button>
                     </div>
                 </div>
 
@@ -2922,7 +2922,7 @@
                         <h4 style="font-family: 'Cinzel'; color: var(--gold); margin-bottom: 10px; letter-spacing: 2px;">PULSARIO ADVANCED</h4>
                         <p style="font-size: 0.7rem; color: var(--gray); margin-bottom: 30px;">Premium Sensorik & Performance</p>
                         <button class="btn-checkout" onclick="showWatchInfo(2)" style="margin-bottom: 10px;">MEHR ERFAHREN</button>
-                        <button class="opt-node" style="width: 100%; padding: 15px; border-color: var(--gold); color: var(--gold);" onclick="nav('configurator')">KONFIGURIEREN</button>
+                        <button class="opt-node" style="width: 100%; padding: 15px; border-color: var(--gold); color: var(--gold);" onclick="return nav('configurator')">KONFIGURIEREN</button>
                     </div>
                 </div>
 
@@ -2936,7 +2936,7 @@
                         <h4 style="font-family: 'Cinzel'; color: var(--gold); margin-bottom: 10px; letter-spacing: 2px;">PULSARIO LUXURY</h4>
                         <p style="font-size: 0.7rem; color: var(--gray); margin-bottom: 30px;">Handgefertigt aus Edelstahl</p>
                         <button class="btn-checkout" onclick="showWatchInfo(3)" style="margin-bottom: 10px;">MEHR ERFAHREN</button>
-                        <button class="opt-node" style="width: 100%; padding: 15px; border-color: var(--gold); color: var(--gold);" onclick="nav('configurator')">KONFIGURIEREN</button>
+                        <button class="opt-node" style="width: 100%; padding: 15px; border-color: var(--gold); color: var(--gold);" onclick="return nav('configurator')">KONFIGURIEREN</button>
                     </div>
                 </div>
 
@@ -2981,7 +2981,7 @@
                         <h4 style="font-family: 'Cinzel'; color: var(--gold); margin-bottom: 10px; letter-spacing: 2px;">PULSARIO CARDHOLDER</h4>
                         <p style="font-size: 0.7rem; color: var(--gray); margin-bottom: 30px;">Premium Kartenhalter</p>
                         <button class="btn-checkout" onclick="showCardholderInfo()" style="margin-bottom: 10px;">MEHR ERFAHREN</button>
-                        <button class="opt-node" style="width: 100%; padding: 15px; border-color: var(--gold); color: var(--gold);" onclick="nav('cardholder-configurator')">KONFIGURIEREN</button>
+                        <button class="opt-node" style="width: 100%; padding: 15px; border-color: var(--gold); color: var(--gold);" onclick="return nav('cardholder-configurator')">KONFIGURIEREN</button>
                     </div>
                 </div>
             </div>
@@ -3204,7 +3204,7 @@
                             <div style="color: var(--gray); font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 15px;">✉️ SCHREIBEN SIE AN:</div>
                             <div style="font-size: 1.2rem; color: var(--white); font-weight: 600; word-break: break-all;">pulsario.official@gmail.com</div>
                         </div>
-                        <button class="opt-node" style="width: 100%; max-width: 400px; padding: 12px 25px;" onclick="nav('home')">← ZURÜCK ZUR HOME</button>
+                        <button class="opt-node" style="width: 100%; max-width: 400px; padding: 12px 25px;" onclick="return nav('home')">← ZURÜCK ZUR HOME</button>
                     </div>
                 </div>
             </div>
@@ -3541,7 +3541,7 @@
                             <div style="color: var(--gray); font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 15px;">✉️ SCHREIBEN SIE AN:</div>
                             <div style="font-size: 1.2rem; color: var(--white); font-weight: 600; word-break: break-all;">pulsario.official@gmail.com</div>
                         </div>
-                        <button class="opt-node" style="width: 100%; max-width: 400px; padding: 12px 25px;" onclick="nav('home')">← ZURÜCK ZUR HOME</button>
+                        <button class="opt-node" style="width: 100%; max-width: 400px; padding: 12px 25px;" onclick="return nav('home')">← ZURÜCK ZUR HOME</button>
                     </div>
                 </div>
             </div>
@@ -4434,10 +4434,10 @@
                 <p>Alle Inhalte dieser Website (Text, Bilder, Design, Grafiken) sind urheberrechtlich geschützt. Eine Reproduktion oder Verbreitung ohne schriftliche Genehmigung ist untersagt.</p>
 
                 <h3>RECHTLICHE DOKUMENTATION</h3>
-                <p>→ <a href="#" onclick="nav('agb')" style="color: var(--gold); text-decoration: underline;">AGB</a><br>
-                → <a href="#" onclick="nav('widerruf')" style="color: var(--gold); text-decoration: underline;">Widerrufsbelehrung</a><br>
-                → <a href="#" onclick="nav('datenschutz')" style="color: var(--gold); text-decoration: underline;">Datenschutzerklärung</a><br>
-                → <a href="#" onclick="nav('cookies')" style="color: var(--gold); text-decoration: underline;">Cookie-Richtlinie</a></p>
+                <p>→ <a href="#" onclick="return nav('agb')" style="color: var(--gold); text-decoration: underline;">AGB</a><br>
+                → <a href="#" onclick="return nav('widerruf')" style="color: var(--gold); text-decoration: underline;">Widerrufsbelehrung</a><br>
+                → <a href="#" onclick="return nav('datenschutz')" style="color: var(--gold); text-decoration: underline;">Datenschutzerklärung</a><br>
+                → <a href="#" onclick="return nav('cookies')" style="color: var(--gold); text-decoration: underline;">Cookie-Richtlinie</a></p>
 
                 <p style="margin-top: 60px; font-size: 0.8rem; color: var(--gold);"><strong>Gültig ab: Oktober 2025</strong></p>
             </div>
@@ -4558,8 +4558,8 @@
                 </div>
 
                 <div style="display: flex; gap: 15px; justify-content: center;">
-                    <button class="btn-checkout" style="width: auto; padding: 15px 40px;" onclick="nav('home')">ZUR STARTSEITE</button>
-                    <button class="opt-node" style="padding: 15px 40px;" onclick="nav('shop')">SHOP ANSEHEN</button>
+                    <button class="btn-checkout" style="width: auto; padding: 15px 40px;" onclick="return nav('home')">ZUR STARTSEITE</button>
+                    <button class="opt-node" style="padding: 15px 40px;" onclick="return nav('shop')">SHOP ANSEHEN</button>
                 </div>
             </div>
         </section>
@@ -4585,9 +4585,9 @@
                             <span id="checkout-cart-total">0.00€</span>
                         </div>
                         <button class="btn-checkout" onclick="goToCheckoutStep(1)" style="width: 100%; margin-bottom: 15px;">ZUR ADRESSEINGABE →</button>
-                        <button class="opt-node" style="width: 100%; padding: 15px;" onclick="nav('shop')">← ZUM SHOP</button>
+                        <button class="opt-node" style="width: 100%; padding: 15px;" onclick="return nav('shop')">← ZUM SHOP</button>
                         <div class="legal-notice" style="margin-top: 25px;">
-                            ⚠️ Der Kaufvertrag kommt erst mit erfolgreicher Zahlung zustande. Bitte bestätigen Sie auch die <a href="#" onclick="nav('agb')" style="color: var(--gold); text-decoration: underline;">AGB und Widerrufsbelehrung</a> im nächsten Schritt.
+                            ⚠️ Der Kaufvertrag kommt erst mit erfolgreicher Zahlung zustande. Bitte bestätigen Sie auch die <a href="#" onclick="return nav('agb')" style="color: var(--gold); text-decoration: underline;">AGB und Widerrufsbelehrung</a> im nächsten Schritt.
                         </div>
                     </div>
                 </div>
@@ -4675,7 +4675,7 @@
                         </div>
                         <div class="checkbox-group">
                             <input type="checkbox" id="checkout-privacy-confirm" />
-                            <label for="checkout-privacy-confirm">Ich akzeptiere die <a href="#" onclick="nav('datenschutz')" style="color: var(--gold); text-decoration: underline;">Datenschutzerklärung</a> *</label>
+                            <label for="checkout-privacy-confirm">Ich akzeptiere die <a href="#" onclick="return nav('datenschutz')" style="color: var(--gold); text-decoration: underline;">Datenschutzerklärung</a> *</label>
                         </div>
                     </div>
                     <div class="summary-box">
@@ -4801,11 +4801,11 @@
                         <h5 style="font-family: 'Cinzel'; letter-spacing: 2px; margin-bottom: 20px;">BESTÄTIGUNGEN ERFORDERLICH</h5>
                         <div class="checkbox-group">
                             <input type="checkbox" id="review-agb-check" />
-                            <label for="review-agb-check">Ich akzeptiere die <a href="#" onclick="nav('agb')" style="color: var(--gold); text-decoration: underline;">AGB</a> *</label>
+                            <label for="review-agb-check">Ich akzeptiere die <a href="#" onclick="return nav('agb')" style="color: var(--gold); text-decoration: underline;">AGB</a> *</label>
                         </div>
                         <div class="checkbox-group">
                             <input type="checkbox" id="review-widerruf-check" />
-                            <label for="review-widerruf-check">Ich habe die <a href="#" onclick="nav('widerruf')" style="color: var(--gold); text-decoration: underline;">Widerrufsbelehrung</a> gelesen *</label>
+                            <label for="review-widerruf-check">Ich habe die <a href="#" onclick="return nav('widerruf')" style="color: var(--gold); text-decoration: underline;">Widerrufsbelehrung</a> gelesen *</label>
                         </div>
                         <div id="review-engrave-check-container" class="checkbox-group" style="display: none;">
                             <input type="checkbox" id="review-engrave-check" />
@@ -4866,8 +4866,8 @@
                     </div>
 
                     <div style="display: flex; gap: 15px; margin-top: 40px; justify-content: center;">
-                        <button class="btn-checkout" style="width: auto; padding: 15px 40px;" onclick="nav('home')">ZUR STARTSEITE</button>
-                        <button class="opt-node" style="padding: 15px 40px;" onclick="nav('shop')">WEITERE PRODUKTE</button>
+                        <button class="btn-checkout" style="width: auto; padding: 15px 40px;" onclick="return nav('home')">ZUR STARTSEITE</button>
+                        <button class="opt-node" style="padding: 15px 40px;" onclick="return nav('shop')">WEITERE PRODUKTE</button>
                     </div>
                 </div>
             </div>
@@ -5293,7 +5293,7 @@ Kunststoffgehäuse bieten lediglich einen grundlegenden Schutz vor Spritzwasser 
                     Partnerschaft bei Pulsario bedeutet: <strong>Innovation unterstützen, Bildung fördern, Zukunft mitgestalten.</strong>
                 </p>
                 <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-                    <button class="btn-checkout" onclick="nav('contact')" style="padding: 15px 40px; font-size: 0.9rem; font-weight: 900;">📞 KONTAKT AUFNEHMEN</button>
+                    <button class="btn-checkout" onclick="return nav('contact')" style="padding: 15px 40px; font-size: 0.9rem; font-weight: 900;">📞 KONTAKT AUFNEHMEN</button>
                     <a href="mailto:pulsario.official@gmail.com" style="padding: 15px 40px; background: rgba(0,0,0,0.15); color: black; border: 2px solid black; text-decoration: none; cursor: pointer; font-weight: 900; font-size: 0.9rem; letter-spacing: 2px; border-radius: 4px; display: inline-block;">📧 pulsario.official@gmail.com</a>
                 </div>
             </div>
@@ -5372,25 +5372,25 @@ Gegründet 2025 als Junior Company in der HTLJenbach – gemacht für Menschen, 
         </div>
         <div class="footer-col">
             <h5>ENTDECKEN</h5>
-            <a href="#" onclick="nav('shop')">Shop</a>
-            <a href="#" onclick="nav('configurator')">Konfigurator</a>
-            <a href="#" onclick="nav('features')">Features</a>
-            <a href="#" onclick="nav('about')">Über uns</a>
-            <a href="#" onclick="nav('news')">News & Entwicklung</a>
-            <a href="#" onclick="nav('zusammenarbeit')" style="color: var(--gold);">🤝 Zusammenarbeit</a>
-            <a href="#" onclick="nav('contact')">Kontakt</a>
-            <a href="#" onclick="nav('faq')" style="color: var(--gold);">❓ FAQ</a>
+            <a href="#" onclick="return nav('shop')">Shop</a>
+            <a href="#" onclick="return nav('configurator')">Konfigurator</a>
+            <a href="#" onclick="return nav('features')">Features</a>
+            <a href="#" onclick="return nav('about')">Über uns</a>
+            <a href="#" onclick="return nav('news')">News & Entwicklung</a>
+            <a href="#" onclick="return nav('zusammenarbeit')" style="color: var(--gold);">🤝 Zusammenarbeit</a>
+            <a href="#" onclick="return nav('contact')">Kontakt</a>
+            <a href="#" onclick="return nav('faq')" style="color: var(--gold);">❓ FAQ</a>
         </div>
         <div class="footer-col">
             <h5>RECHTLICHES</h5>
-            <a href="#" onclick="nav('agb')">AGB</a>
-            <a href="#" onclick="nav('widerruf')">Widerruf & Rückgabe</a>
-            <a href="#" onclick="nav('datenschutz')">Datenschutz</a>
-            <a href="#" onclick="nav('cookies')">Cookies</a>
-            <a href="#" onclick="nav('barrierefreiheit')">Barrierefreiheit</a>
-            <a href="#" onclick="nav('impressum')">Impressum</a>
-            <a href="#" onclick="nav('versand')" style="color: var(--gold);">📦 Versand</a>
-            <a href="#" onclick="nav('zollkosten')" style="color: var(--gold);">⚠️ Zoll & Gebühren</a>
+            <a href="#" onclick="return nav('agb')">AGB</a>
+            <a href="#" onclick="return nav('widerruf')">Widerruf & Rückgabe</a>
+            <a href="#" onclick="return nav('datenschutz')">Datenschutz</a>
+            <a href="#" onclick="return nav('cookies')">Cookies</a>
+            <a href="#" onclick="return nav('barrierefreiheit')">Barrierefreiheit</a>
+            <a href="#" onclick="return nav('impressum')">Impressum</a>
+            <a href="#" onclick="return nav('versand')" style="color: var(--gold);">📦 Versand</a>
+            <a href="#" onclick="return nav('zollkosten')" style="color: var(--gold);">⚠️ Zoll & Gebühren</a>
         </div>
         <div class="footer-col">
             <h5>KONTAKT & SOCIALS</h5>

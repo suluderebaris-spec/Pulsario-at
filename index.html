@@ -3180,7 +3180,7 @@
                             </div>
                             <div style="display: flex; justify-content: space-between; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #111; margin-top: 20px;">
                                 <span style="color: var(--gray);">LIEFERZEIT:</span>
-                                <span style="color: var(--white); font-weight: 900;" id="watch-summary-shipping-time">5–14 Werktage</span>
+                                <span style="color: var(--white); font-weight: 900;" id="watch-summary-shipping-time">2–7 Tage</span>
                             </div>
                             <div style="display: flex; justify-content: space-between; margin-top: 30px; font-family: 'Cinzel'; font-size: 1.5rem; color: var(--gold); font-weight: 900;">
                                 <span>GESAMTPREIS:</span>
@@ -3197,7 +3197,7 @@
                                 <div style="color: var(--white); font-weight: 900; font-size: 1rem;">AT93 1200 0100 4745 4342</div>
                                 <div style="color: var(--gray); font-size: 0.75rem; margin-top: 8px;">Inhaber: PULSARIO</div>
                             </div>
-                            <p style="margin-top: 12px; margin-bottom: 0; color: #999; font-size: 0.7rem; font-style: italic;">Nach Zahlungsempfang wird Ihre Pulsario produziert und versendet (5–14 Werktage).</p>
+                            <p style="margin-top: 12px; margin-bottom: 0; color: #999; font-size: 0.7rem; font-style: italic;">Nach Zahlungsempfang wird Ihre Pulsario produziert und versendet (2–7 Tage).</p>
                         </div>
                         <button class="btn-checkout" style="width: 100%; margin-bottom: 20px;" onclick="takeWatchConfiguratorScreenshot()">📸 SCREENSHOT MACHEN</button>
                         <div style="background: #050505; border: 2px solid var(--gold); padding: 30px; margin-bottom: 20px; text-align: center; border-radius: 6px;">
@@ -3383,7 +3383,7 @@
                             </div>
                             <div style="display: flex; justify-content: space-between; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #111; margin-top: 20px;">
                                 <span style="color: var(--gray);">LIEFERZEIT:</span>
-                                <span style="color: var(--white); font-weight: 900;" id="summary-shipping-time">5–14 Werktage</span>
+                                <span style="color: var(--white); font-weight: 900;" id="summary-shipping-time">2–7 Tage</span>
                             </div>
                             <div style="display: flex; justify-content: space-between; margin-top: 30px; font-family: 'Cinzel'; font-size: 1.5rem; color: var(--gold); font-weight: 900;">
                                 <span>GESAMTPREIS:</span>
@@ -4915,7 +4915,7 @@
                             </div>
                             <div>
                                 <p style="color: var(--gray); font-size: 0.8rem; margin-bottom: 8px;">LIEFERDAUER:</p>
-                                <p style="font-weight: 900; font-size: 1rem; color: #fbbf24;">5–14 Werktage</p>
+                                <p style="font-weight: 900; font-size: 1rem; color: #fbbf24;">2–7 Tage</p>
                                 <p style="color: var(--gray); font-size: 0.75rem; margin-top: 8px;">Je nach Zielland</p>
                             </div>
                         </div>
@@ -5934,7 +5934,7 @@ Gegründet 2025 als Junior Company in der HTLJenbach – gemacht für Menschen, 
          * This function returns the estimated shipping time in days
          */
         function calculateShippingTime(country) {
-            if (!country) return { min: 5, max: 14, display: '5–14 Werktage' };
+            if (!country) return { min: 2, max: 7, display: '2–7 Tage' };
             
             const austrianCountries = ['Österreich', 'Austria', 'AT', 'Austria'];
             const euCountries = ['Deutschland', 'Frankreich', 'Italien', 'Spanien', 'Belgien', 'Niederlande', 
@@ -6054,7 +6054,7 @@ Gegründet 2025 als Junior Company in der HTLJenbach – gemacht für Menschen, 
             // Update shipping time (default to EU standard, will be updated in checkout)
             const summaryShippingEl = document.getElementById('summary-shipping-time');
             if (summaryShippingEl) {
-                summaryShippingEl.textContent = '5–14 Werktage';
+                summaryShippingEl.textContent = '2–7 Tage';
             }
             
             // Update sticky bar
@@ -6856,7 +6856,7 @@ ARMBÄNDER:     ${armband_details}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 GESAMTPREIS:   €${config.totalPrice}
-LIEFERZEIT:    5–14 Werktage
+LIEFERZEIT:    2–7 Tage
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 📋 ZAHLUNGSANWEISUNG:

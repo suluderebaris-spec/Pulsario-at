@@ -182,8 +182,7 @@
             font-weight: 600;
         }
 
-        .mobile-menu a:hover,
-        .mobile-menu a.active {
+        .mobile-menu a:hover {
             opacity: 1;
             color: var(--gold);
         }
@@ -5442,6 +5441,7 @@ Gegründet 2025 als Junior Company in der HTLJenbach – gemacht für Menschen, 
         function nav(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.nav-center a').forEach(a => a.classList.remove('active'));
+            document.querySelectorAll('#mobile-menu a').forEach(a => a.classList.remove('active'));
             
             const page = document.getElementById(pageId);
             if (page) {

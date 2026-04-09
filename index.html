@@ -5440,7 +5440,7 @@ Gegründet 2025 als Junior Company in der HTLJenbach – gemacht für Menschen, 
         // ===== NAVIGATION & PAGE MANAGEMENT =====
         function nav(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.nav-center a').forEach(a => a.classList.remove('active'));
+            document.querySelectorAll('.nav-center button').forEach(a => a.classList.remove('active'));
             document.querySelectorAll('#mobile-menu a').forEach(a => a.classList.remove('active'));
             
             const page = document.getElementById(pageId);
@@ -5453,7 +5453,11 @@ Gegründet 2025 als Junior Company in der HTLJenbach – gemacht für Menschen, 
                 navLink.classList.add('active');
             }
             
-            window.scrollTo(0, 0);
+            // Scroll to top AFTER page switch
+            setTimeout(() => {
+                window.scrollTo(0, 0);
+            }, 0);
+            
             toggleCart(false);
             toggleHamburger(false);
 
@@ -5466,6 +5470,8 @@ Gegründet 2025 als Junior Company in der HTLJenbach – gemacht für Menschen, 
                     updateCheckoutSummary();
                 }, 100);
             }
+            
+            return false;
         }
 
         // ===== HANDLE BROWSER BACK/FORWARD BUTTON =====

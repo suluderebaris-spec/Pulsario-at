@@ -5439,6 +5439,9 @@ Gegründet 2025 als Junior Company in der HTLJenbach – gemacht für Menschen, 
 
         // ===== NAVIGATION & PAGE MANAGEMENT =====
         function nav(pageId) {
+            // SCROLL TO TOP FIRST - must be immediate!
+            window.scrollTo(0, 0);
+            
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.nav-center button').forEach(a => a.classList.remove('active'));
             document.querySelectorAll('#mobile-menu a').forEach(a => a.classList.remove('active'));
@@ -5452,11 +5455,6 @@ Gegründet 2025 als Junior Company in der HTLJenbach – gemacht für Menschen, 
             if (navLink) {
                 navLink.classList.add('active');
             }
-            
-            // Scroll to top AFTER page switch
-            setTimeout(() => {
-                window.scrollTo(0, 0);
-            }, 0);
             
             toggleCart(false);
             toggleHamburger(false);
@@ -7811,7 +7809,7 @@ Uhrzeit: ${new Date().toLocaleTimeString('de-DE')}
                     <strong>🍪 COOKIE-EINSTELLUNGEN</strong>
                 </p>
                 <p style="color: var(--gray); margin: 0; font-size: 0.8rem; line-height: 1.5;">
-                    Wir nutzen Cookies für Funktionalität, Sicherheit und Analyse. Sie können Ihre Einstellungen ändern. Weitere Informationen finden Sie in unserer <a href="#" onclick="nav('cookies')" style="color: var(--gold); text-decoration: underline;">Cookie-Richtlinie</a>.
+                    Wir nutzen Cookies für Funktionalität, Sicherheit und Analyse. Sie können Ihre Einstellungen ändern. Weitere Informationen finden Sie in unserer <a href="#" onclick="return nav('cookies')" style="color: var(--gold); text-decoration: underline;">Cookie-Richtlinie</a>.
                 </p>
             </div>
             <div style="display: flex; gap: 15px; flex-wrap: wrap; min-width: 320px; justify-content: flex-end;">
